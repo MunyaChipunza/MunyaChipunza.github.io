@@ -1198,11 +1198,12 @@ textarea {
 .shop-cover-stage {
   display: grid;
   justify-items: center;
-  gap: 1rem;
   padding: clamp(0.85rem, 1.7vw, 1.25rem);
   overflow: hidden;
   border-radius: 0;
-  background: radial-gradient(circle at 50% 10%, rgba(187, 107, 69, 0.16), transparent 38%), #11110f;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(187, 107, 69, 0.18), transparent 40%),
+    linear-gradient(180deg, #17130f 0%, #0f0e0c 100%);
   border: 1px solid rgba(35, 28, 19, 0.08);
   box-shadow: 0 30px 80px rgba(17, 16, 13, 0.22);
 }
@@ -1222,7 +1223,7 @@ textarea {
   grid-template-columns: minmax(0, 1fr) 0.12fr minmax(0, 1fr);
   width: min(100%, 740px);
   aspect-ratio: 678 / 500;
-  border: 4px solid #0d0d0d;
+  border: 4px solid #16120e;
   box-shadow: 0 28px 58px rgba(0, 0, 0, 0.38);
   color: #11100d;
 }
@@ -1235,7 +1236,9 @@ textarea {
 }
 
 .jacket-front {
-  background: linear-gradient(180deg, #b96d4c 0%, #9c5638 56%, #70402d 100%);
+  background:
+    linear-gradient(180deg, rgba(246, 240, 230, 0.08), transparent 28%),
+    linear-gradient(180deg, #b88465 0%, #9c5638 58%, #5e3829 100%);
 }
 
 .jacket-edge {
@@ -1243,7 +1246,7 @@ textarea {
   left: 0;
   right: 0;
   height: 4px;
-  background: #0d0d0d;
+  background: #16120e;
   z-index: 5;
 }
 
@@ -1302,24 +1305,27 @@ textarea {
 .jacket-front-photo {
   position: absolute;
   left: 50%;
-  bottom: 0;
-  width: 100%;
-  height: 65%;
+  bottom: 5.8%;
+  width: 72%;
+  height: 44%;
   object-fit: cover;
-  object-position: center top;
+  object-position: 50% 10%;
   transform: translateX(-50%);
-  filter: grayscale(1) contrast(1.12) sepia(0.28) brightness(0.72);
+  filter: grayscale(0.34) sepia(0.34) saturate(0.88) contrast(1.08) brightness(0.82);
   opacity: 0.9;
   z-index: 1;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 10%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 10%, #000 72%, transparent 100%);
 }
 
 .jacket-photo-fade {
   position: absolute;
-  inset: 35% 0 0;
+  inset: 46% 0 0;
   z-index: 2;
   background:
-    linear-gradient(180deg, #9c5638 0%, rgba(156, 86, 56, 0.62) 22%, rgba(156, 86, 56, 0.08) 60%, rgba(15, 14, 10, 0.78) 100%),
-    linear-gradient(90deg, rgba(156, 86, 56, 0.56), transparent 28%, transparent 72%, rgba(156, 86, 56, 0.42));
+    linear-gradient(180deg, rgba(156, 86, 56, 0) 0%, rgba(156, 86, 56, 0.28) 42%, rgba(24, 19, 14, 0.88) 100%),
+    radial-gradient(circle at 50% 34%, rgba(231, 220, 201, 0.08), transparent 48%),
+    linear-gradient(90deg, rgba(94, 56, 41, 0.68), transparent 26%, transparent 74%, rgba(94, 56, 41, 0.58));
 }
 
 .jacket-front-author {
@@ -1341,7 +1347,7 @@ textarea {
   align-content: center;
   justify-items: center;
   gap: 1rem;
-  background: #7a432e;
+  background: #70402d;
   border-left: 1px solid rgba(17, 16, 13, 0.64);
   border-right: 1px solid rgba(17, 16, 13, 0.64);
 }
@@ -1373,7 +1379,9 @@ textarea {
   align-content: space-between;
   gap: clamp(0.48rem, 0.72vw, 0.65rem);
   padding: clamp(0.85rem, 1.45vw, 1.3rem) clamp(0.9rem, 1.65vw, 1.45rem);
-  background: linear-gradient(180deg, #c67b58 0%, #b96d4c 100%);
+  background:
+    radial-gradient(circle at 90% 12%, rgba(246, 240, 230, 0.22), transparent 38%),
+    linear-gradient(180deg, #c49877 0%, #a76547 100%);
 }
 
 .jacket-back-copy {

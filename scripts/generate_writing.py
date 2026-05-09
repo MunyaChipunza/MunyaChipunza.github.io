@@ -996,7 +996,7 @@ def render_shop_page() -> str:
 {ICON_LINKS}
     <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/assets/fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" as="image" href="/assets/images/munya-home.webp">
+    <link rel="preload" as="image" href="/assets/images/men-cover-portrait.jpg">
     <link rel="stylesheet" href="/assets/css/style.css">
     <script type="application/ld+json">
       {{
@@ -1033,7 +1033,6 @@ def render_shop_page() -> str:
           </div>
         </div>
         <div class="shop-cover-stage book-jacket-stage will-reveal" aria-label="Full book jacket concept for MEN">
-          <p class="book-jacket-label">Version B &mdash; Coffee &amp; Black</p>
           <div class="book-jacket">
             <section class="jacket-panel jacket-front" aria-label="Front cover">
               <div class="jacket-edge jacket-edge-top"></div>
@@ -1043,7 +1042,7 @@ def render_shop_page() -> str:
                 <span class="jacket-rule"></span>
                 <span class="jacket-subtitle">God's Question to Every Man</span>
               </div>
-              <img class="jacket-front-photo" src="/assets/images/munya-home.webp" alt="" width="1200" height="1600" decoding="async">
+              <img class="jacket-front-photo" src="/assets/images/men-cover-portrait.jpg" alt="" width="900" height="1140" decoding="async">
               <div class="jacket-photo-fade"></div>
               <div class="jacket-front-author">Munya Chipunza</div>
               <div class="jacket-edge jacket-edge-bottom"></div>
