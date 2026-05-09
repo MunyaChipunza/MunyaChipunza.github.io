@@ -1174,7 +1174,7 @@ def main() -> None:
     write(ROOT / "blog-feed.xml", render_feed(posts))
     write(ROOT / "sitemap.xml", render_sitemap(posts, total_pages))
     write(ROOT / "shop" / "index.html", render_shop_page())
-    write(ROOT / "shop.html", render_redirect_page("/shop"))
+    write(ROOT / "shop.html", render_shop_page())
     update_homepage_sections(posts)
 
 
