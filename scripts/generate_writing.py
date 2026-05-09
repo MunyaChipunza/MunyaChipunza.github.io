@@ -485,9 +485,10 @@ def header(active: str, cta_href: str, cta_label: str) -> str:
           </svg>
         </button>
         <ul class="nav-links" data-nav-links>
-          <li><a href="/"{" class=\"active\"" if active == "home" else ""}>Home</a></li>
-          <li><a href="/about"{" class=\"active\"" if active == "about" else ""}>About</a></li>
-          <li><a href="/writing"{" class=\"active\"" if active == "writing" else ""}>Writing</a></li>
+          <li><a href="/"{' class="active"' if active == "home" else ""}>Home</a></li>
+          <li><a href="/about"{' class="active"' if active == "about" else ""}>About</a></li>
+          <li><a href="/writing"{' class="active"' if active == "writing" else ""}>Writing</a></li>
+          <li><a href="/shop"{' class="active"' if active == "shop" else ""}>Shop</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-actions">
@@ -510,6 +511,7 @@ FOOTER = """    <footer class="footer">
               <a href="/">Home</a>
               <a href="/about">About</a>
               <a href="/writing">Writing</a>
+              <a href="/shop">Shop</a>
             </div>
           </div>
           <div>
@@ -916,6 +918,7 @@ def render_sitemap(posts: list[dict], total_pages: int) -> str:
         (f"{SITE_URL}/", "daily"),
         (f"{SITE_URL}/about", "monthly"),
         (f"{SITE_URL}/writing", "weekly"),
+        (f"{SITE_URL}/shop", "monthly"),
     ]
     for page_number in range(2, total_pages + 1):
         urls.append((f"{SITE_URL}/writing/page/{page_number}", "weekly"))
@@ -933,6 +936,151 @@ def render_sitemap(posts: list[dict], total_pages: int) -> str:
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {url_xml}
 </urlset>
+"""
+
+
+def render_shop_page() -> str:
+    title = "Shop | MEN by Munya Chipunza"
+    description = "MEN, Munya Chipunza's forthcoming book on biblical manhood, responsibility, formation, and steady strength. Launch details are coming soon."
+    canonical = f"{SITE_URL}/shop"
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{escape_text(title)}</title>
+    <meta name="description" content="{escape_attr(description)}">
+    <link rel="canonical" href="{canonical}">
+    <meta property="og:title" content="{escape_attr(title)}">
+    <meta property="og:description" content="{escape_attr(description)}">
+    <meta property="og:site_name" content="Munya Chipunza">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{canonical}">
+    <meta property="og:image" content="{SITE_URL}/assets/images/munya-home.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{escape_attr(title)}">
+    <meta name="twitter:description" content="{escape_attr(description)}">
+    <meta name="twitter:image" content="{SITE_URL}/assets/images/munya-home.jpg">
+{ICON_LINKS}
+    <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" as="image" href="/assets/images/munya-home.webp">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script type="application/ld+json">
+      {{
+        "@context": "https://schema.org",
+        "@type": "Book",
+        "name": "MEN",
+        "alternateName": "Where are you? God's Question to Every Man",
+        "author": {{
+          "@type": "Person",
+          "name": "Munya Chipunza",
+          "url": "{SITE_URL}/"
+        }},
+        "url": "{canonical}",
+        "description": "{escape_attr(description)}",
+        "image": "{SITE_URL}/assets/images/munya-home.jpg"
+      }}
+    </script>
+{GOOGLE_ANALYTICS_TAG}
+  </head>
+  <body>
+{header("shop", "/writing", "Read a reflection")}
+
+    <main class="page-wrap">
+      <section class="shop-hero">
+        <div class="shop-hero-copy">
+          <p class="eyebrow">Book shop</p>
+          <h1>MEN is coming soon.</h1>
+          <p class="shop-lead">
+            A book about biblical manhood, written for men who are trying to become steady without pretending they have everything figured out.
+          </p>
+          <div class="button-row">
+            <a class="button button-primary" href="#launch-updates">Get launch updates</a>
+            <a class="button button-secondary" href="/writing">Read the writing</a>
+          </div>
+        </div>
+        <div class="shop-cover-stage will-reveal" aria-label="Book cover concept for MEN">
+          <div class="book-preview-cover">
+            <div class="book-preview-accent top"></div>
+            <div class="book-preview-text">
+              <span class="book-preview-title">MEN</span>
+              <span class="book-preview-question">"Where are you?"</span>
+              <span class="book-preview-rule"></span>
+              <span class="book-preview-subtitle">God's Question to Every Man</span>
+            </div>
+            <img class="book-preview-photo" src="/assets/images/munya-home.webp" alt="" width="1200" height="1600" decoding="async">
+            <div class="book-preview-fade"></div>
+            <div class="book-preview-author">Munya Chipunza</div>
+            <div class="book-preview-accent bottom"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="shop-purchase-grid" aria-labelledby="purchase-status">
+        <article class="shop-card shop-product-card will-reveal">
+          <span class="shop-status-pill">Coming soon</span>
+          <p class="eyebrow">Forthcoming book</p>
+          <h2 id="purchase-status">MEN: "Where are you?"</h2>
+          <p>
+            This purchase page is being prepared now. No payment is being taken yet, and no preorder is active until the release details are final.
+          </p>
+          <dl class="product-details">
+            <div>
+              <dt>Status</dt>
+              <dd>Writing and launch setup in progress</dd>
+            </div>
+            <div>
+              <dt>Price</dt>
+              <dd>To be announced</dd>
+            </div>
+            <div>
+              <dt>Format</dt>
+              <dd>Launch format to be confirmed</dd>
+            </div>
+            <div>
+              <dt>Checkout</dt>
+              <dd>Secure checkout will be added before sales open</dd>
+            </div>
+          </dl>
+          <span class="button button-primary button-disabled" aria-disabled="true">Purchase coming soon</span>
+        </article>
+
+        <aside class="shop-card shop-notify-card will-reveal" id="launch-updates">
+          <p class="eyebrow">Launch updates</p>
+          <h2>Be first to know when the book is ready.</h2>
+          <p>Join the list and I will send the release note, price, and buying link when the book is ready.</p>
+          <div class="subscribe-form-shell">
+{subscribe_form_fields("Book launch subscriber from munyachipunza.com", "book shop")}
+          </div>
+        </aside>
+      </section>
+
+      <section class="shop-info-grid" aria-labelledby="purchase-notes">
+        <div class="shop-info-card will-reveal">
+          <p class="eyebrow">What will be added</p>
+          <h2 id="purchase-notes">The purchase flow will stay simple.</h2>
+          <p>When the book is ready, this page will hold the live buying button, payment details, delivery expectations, and support contact in one place.</p>
+        </div>
+        <div class="shop-info-card will-reveal">
+          <h3>Before launch</h3>
+          <p>Use the update form if you want the announcement. The current button is intentionally disabled so nobody thinks they are buying today.</p>
+        </div>
+        <div class="shop-info-card will-reveal">
+          <h3>At launch</h3>
+          <p>The page will be updated with a secure checkout provider, final price, fulfilment details, and a short FAQ for buyers.</p>
+        </div>
+      </section>
+
+{FORM_SECTION}
+    </main>
+
+{FOOTER}
+
+    <script src="/assets/js/site.js?v={ASSET_VERSION}"></script>
+  </body>
+</html>
 """
 
 
@@ -1025,6 +1173,8 @@ def main() -> None:
 
     write(ROOT / "blog-feed.xml", render_feed(posts))
     write(ROOT / "sitemap.xml", render_sitemap(posts, total_pages))
+    write(ROOT / "shop" / "index.html", render_shop_page())
+    write(ROOT / "shop.html", render_redirect_page("/shop"))
     update_homepage_sections(posts)
 
 
