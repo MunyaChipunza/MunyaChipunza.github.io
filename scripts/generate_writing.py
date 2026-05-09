@@ -1001,19 +1001,50 @@ def render_shop_page() -> str:
             <a class="button button-secondary" href="/writing">Read the writing</a>
           </div>
         </div>
-        <div class="shop-cover-stage will-reveal" aria-label="Book cover concept for MEN">
-          <div class="book-preview-cover">
-            <div class="book-preview-accent top"></div>
-            <div class="book-preview-text">
-              <span class="book-preview-title">MEN</span>
-              <span class="book-preview-question">"Where are you?"</span>
-              <span class="book-preview-rule"></span>
-              <span class="book-preview-subtitle">God's Question to Every Man</span>
-            </div>
-            <img class="book-preview-photo" src="/assets/images/munya-home.webp" alt="" width="1200" height="1600" decoding="async">
-            <div class="book-preview-fade"></div>
-            <div class="book-preview-author">Munya Chipunza</div>
-            <div class="book-preview-accent bottom"></div>
+        <div class="shop-cover-stage book-jacket-stage will-reveal" aria-label="Full book jacket concept for MEN">
+          <p class="book-jacket-label">Version B &mdash; Coffee &amp; Black</p>
+          <div class="book-jacket">
+            <section class="jacket-panel jacket-front" aria-label="Front cover">
+              <div class="jacket-edge jacket-edge-top"></div>
+              <div class="jacket-front-copy">
+                <span class="jacket-title">MEN</span>
+                <span class="jacket-question">"Where are you?"</span>
+                <span class="jacket-rule"></span>
+                <span class="jacket-subtitle">God's Question to Every Man</span>
+              </div>
+              <img class="jacket-front-photo" src="/assets/images/munya-home.webp" alt="" width="1200" height="1600" decoding="async">
+              <div class="jacket-photo-fade"></div>
+              <div class="jacket-front-author">Munya Chipunza</div>
+              <div class="jacket-edge jacket-edge-bottom"></div>
+            </section>
+            <aside class="jacket-spine" aria-label="Book spine">
+              <span class="jacket-spine-title">MEN</span>
+              <span class="jacket-spine-author">Munya Chipunza</span>
+            </aside>
+            <section class="jacket-panel jacket-back" aria-label="Back cover">
+              <div class="jacket-back-copy">
+                <p class="jacket-back-question">"Where are you?"</p>
+                <span class="jacket-back-rule"></span>
+                <p>God asked Adam this question in a garden thousands of years ago. He is still asking it today.</p>
+                <p>Men are hiding. Behind performance. Behind silence. Behind titles, toughness, and the relentless pursuit of enough. The world has plenty of opinions about what a man should be &mdash; but few answers about what a man truly is.</p>
+                <p>In <em>MEN</em>, Munya Chipunza goes back to the beginning &mdash; to God's original design for man, to where we lost it, and to the only One who can restore it. Not a book about trying harder. A book about coming home.</p>
+                <p>From dust to glory. From hiding to wholeness.</p>
+              </div>
+              <div class="jacket-author-block">
+                <img src="/assets/images/munya-avatar.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+                <div>
+                  <strong>Munya Chipunza</strong>
+                  <span>munyachipunza.com</span>
+                </div>
+              </div>
+              <div class="jacket-back-footer">
+                <span>MUNYACHIPUNZA.COM</span>
+                <div>
+                  <div class="jacket-barcode" aria-hidden="true"></div>
+                  <span class="jacket-isbn">ISBN 978-0-000-00000-0</span>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </section>
