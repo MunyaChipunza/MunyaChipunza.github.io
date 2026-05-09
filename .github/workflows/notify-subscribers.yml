@@ -20,7 +20,7 @@ on:
 jobs:
   notify:
     name: Send latest post notification
-    if: github.repository == 'MunyaChipunza/munyachipunza.com'
+    if: github.repository == 'MunyaChipunza/MunyaChipunza.github.io'
     runs-on: ubuntu-latest
     concurrency:
       group: buttondown-latest-post
