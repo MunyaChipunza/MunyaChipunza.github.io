@@ -360,16 +360,13 @@ textarea {
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  filter: sepia(0.08) contrast(1.03);
 }
 
 .hero-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, rgba(35, 28, 19, 0.06), transparent 28%),
-    linear-gradient(90deg, transparent 45%, rgba(246, 240, 230, 0.78) 100%);
+  background: linear-gradient(180deg, rgba(35, 28, 19, 0.06), transparent 28%);
   pointer-events: none;
 }
 
@@ -669,7 +666,11 @@ textarea {
 }
 
 .book-front-only .jacket-front-copy {
-  inset: 5% 5% auto;
+  inset: 48% 5% auto;
+}
+
+.book-front-only .jacket-front-photo {
+  object-position: center 10%;
 }
 
 .book-mark {
