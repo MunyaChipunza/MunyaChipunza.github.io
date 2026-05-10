@@ -640,6 +640,38 @@ textarea {
   z-index: 3;
 }
 
+/* Scale text proportionally for compact 200px front cover */
+.book-front-only .jacket-title {
+  font-size: 2.4rem;
+  letter-spacing: 0.12em;
+  line-height: 0.9;
+}
+
+.book-front-only .jacket-question {
+  font-size: 0.68rem;
+  margin-top: 0.4rem;
+}
+
+.book-front-only .jacket-rule {
+  width: 2rem;
+  margin: 0.35rem 0 0.25rem;
+}
+
+.book-front-only .jacket-subtitle {
+  font-size: 0.34rem;
+  letter-spacing: 0.2em;
+  max-width: 7rem;
+}
+
+.book-front-only .jacket-front-author {
+  font-size: 0.34rem;
+  letter-spacing: 0.28em;
+}
+
+.book-front-only .jacket-front-copy {
+  inset: 5% 5% auto;
+}
+
 .book-mark {
   min-height: 100%;
   padding: 2rem 1.6rem;
