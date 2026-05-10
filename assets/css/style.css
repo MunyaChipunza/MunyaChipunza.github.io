@@ -1222,8 +1222,8 @@ textarea {
   width: min(100%, 740px);
   aspect-ratio: 678 / 500;
   border: none;
-  box-shadow: 0 18px 38px rgba(35, 28, 19, 0.16);
-  color: #11100d;
+  box-shadow: 0 18px 56px rgba(0, 0, 0, 0.72);
+  color: #ffffff;
 }
 
 .jacket-panel,
@@ -1234,9 +1234,7 @@ textarea {
 }
 
 .jacket-front {
-  background:
-    linear-gradient(180deg, rgba(246, 240, 230, 0.08), transparent 28%),
-    linear-gradient(180deg, #b88465 0%, #9c5638 58%, #5e3829 100%);
+  background: #0d0d0d;
 }
 
 .jacket-edge {
@@ -1244,7 +1242,7 @@ textarea {
   left: 0;
   right: 0;
   height: 2px;
-  background: rgba(17, 16, 13, 0.18);
+  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
   z-index: 5;
 }
 
@@ -1266,18 +1264,20 @@ textarea {
 }
 
 .jacket-title {
-  font-family: "Arial Narrow", "Manrope", sans-serif;
+  font-family: "Bebas Neue", "Arial Narrow", sans-serif;
   font-size: clamp(4.3rem, 8vw, 6.75rem);
-  font-weight: 900;
+  font-weight: 400;
   line-height: 0.78;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 40px rgba(201, 168, 76, 0.25);
 }
 
 .jacket-question {
   margin-top: 1rem;
   font-family: "Cormorant Garamond", serif;
-  color: rgba(17, 16, 13, 0.88);
+  color: #c9a84c;
   font-size: clamp(1.05rem, 2vw, 1.55rem);
   font-style: italic;
   letter-spacing: 0.08em;
@@ -1285,16 +1285,16 @@ textarea {
 
 .jacket-rule {
   width: 4.4rem;
-  height: 2px;
+  height: 1px;
   margin: 0.8rem 0 0.55rem;
-  background: rgba(17, 16, 13, 0.86);
+  background: #c9a84c;
 }
 
 .jacket-subtitle {
   max-width: 15rem;
-  color: rgba(17, 16, 13, 0.72);
+  color: rgba(255, 255, 255, 0.55);
   font-size: clamp(0.55rem, 1vw, 0.72rem);
-  font-weight: 800;
+  font-weight: 500;
   line-height: 1.45;
   letter-spacing: 0.32em;
   text-transform: uppercase;
@@ -1321,9 +1321,7 @@ textarea {
   inset: 46% 0 0;
   z-index: 2;
   background:
-    linear-gradient(180deg, rgba(156, 86, 56, 0) 0%, rgba(156, 86, 56, 0.28) 42%, rgba(24, 19, 14, 0.88) 100%),
-    radial-gradient(circle at 50% 34%, rgba(231, 220, 201, 0.08), transparent 48%),
-    linear-gradient(90deg, rgba(94, 56, 41, 0.68), transparent 26%, transparent 74%, rgba(94, 56, 41, 0.58));
+    linear-gradient(180deg, rgba(13, 13, 13, 0) 0%, rgba(13, 13, 13, 0.28) 42%, rgba(13, 13, 13, 0.88) 100%);
 }
 
 .jacket-front-author {
@@ -1332,9 +1330,9 @@ textarea {
   right: 7%;
   bottom: 3.8%;
   z-index: 5;
-  color: #f7f0df;
+  color: rgba(255, 255, 255, 0.55);
   font-size: clamp(0.62rem, 1.05vw, 0.85rem);
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: 0.34em;
   text-align: center;
   text-transform: uppercase;
@@ -1345,9 +1343,9 @@ textarea {
   align-content: center;
   justify-items: center;
   gap: 1rem;
-  background: #70402d;
-  border-left: 1px solid rgba(17, 16, 13, 0.64);
-  border-right: 1px solid rgba(17, 16, 13, 0.64);
+  background: #111111;
+  border-left: 1px solid rgba(201, 168, 76, 0.3);
+  border-right: 1px solid rgba(201, 168, 76, 0.3);
 }
 
 .jacket-spine-title,
@@ -1358,16 +1356,16 @@ textarea {
 }
 
 .jacket-spine-title {
-  color: #0d0d0d;
+  color: #ffffff;
   font-size: clamp(0.68rem, 1.1vw, 0.86rem);
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.22em;
 }
 
 .jacket-spine-author {
-  color: rgba(17, 16, 13, 0.62);
+  color: rgba(201, 168, 76, 0.8);
   font-size: clamp(0.5rem, 0.8vw, 0.64rem);
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: 0.2em;
 }
 
@@ -1377,13 +1375,11 @@ textarea {
   align-content: space-between;
   gap: clamp(0.48rem, 0.72vw, 0.65rem);
   padding: clamp(0.85rem, 1.45vw, 1.3rem) clamp(0.9rem, 1.65vw, 1.45rem);
-  background:
-    radial-gradient(circle at 90% 12%, rgba(246, 240, 230, 0.22), transparent 38%),
-    linear-gradient(180deg, #c49877 0%, #a76547 100%);
+  background: #0d0d0d;
 }
 
 .jacket-back-copy {
-  color: rgba(17, 16, 13, 0.86);
+  color: rgba(255, 255, 255, 0.72);
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(0.68rem, 1.02vw, 0.92rem);
   line-height: 1.24;
@@ -1398,7 +1394,7 @@ textarea {
 }
 
 .jacket-back-question {
-  color: rgba(17, 16, 13, 0.9);
+  color: #c9a84c;
   font-size: clamp(0.88rem, 1.34vw, 1.15rem);
   font-style: italic;
   letter-spacing: 0.04em;
@@ -1407,9 +1403,9 @@ textarea {
 .jacket-back-rule {
   display: block;
   width: 4rem;
-  height: 2px;
+  height: 1px;
   margin: 0 0 clamp(0.38rem, 0.58vw, 0.62rem);
-  background: rgba(17, 16, 13, 0.86);
+  background: #c9a84c;
 }
 
 .jacket-author-block {
@@ -1417,14 +1413,14 @@ textarea {
   align-items: center;
   gap: 0.85rem;
   padding-top: 0.7rem;
-  border-top: 1px solid rgba(17, 16, 13, 0.28);
+  border-top: 1px solid rgba(201, 168, 76, 0.25);
 }
 
 .jacket-author-block img {
   width: clamp(2.8rem, 4.6vw, 3.5rem);
   height: clamp(2.8rem, 4.6vw, 3.5rem);
   border-radius: 999px;
-  border: 2px solid rgba(17, 16, 13, 0.88);
+  border: 1px solid rgba(201, 168, 76, 0.5);
   object-fit: cover;
 }
 
@@ -1434,16 +1430,16 @@ textarea {
 }
 
 .jacket-author-block strong {
-  color: #0d0d0d;
+  color: #ffffff;
   font-size: clamp(0.75rem, 1.2vw, 0.96rem);
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
 }
 
 .jacket-author-block span {
   margin-top: 0.2rem;
-  color: rgba(17, 16, 13, 0.62);
+  color: rgba(255, 255, 255, 0.45);
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(0.78rem, 1.15vw, 1rem);
   font-style: italic;
@@ -1454,9 +1450,9 @@ textarea {
   align-items: end;
   justify-content: space-between;
   gap: 1rem;
-  color: rgba(17, 16, 13, 0.68);
+  color: rgba(201, 168, 76, 0.6);
   font-size: clamp(0.55rem, 0.85vw, 0.72rem);
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.24em;
 }
 
@@ -1466,11 +1462,11 @@ textarea {
   margin-left: auto;
   background: repeating-linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.72) 0 2px,
+    rgba(255, 255, 255, 0.6) 0 2px,
     transparent 2px 5px,
-    rgba(0, 0, 0, 0.72) 5px 7px,
+    rgba(255, 255, 255, 0.6) 5px 7px,
     transparent 7px 10px,
-    rgba(0, 0, 0, 0.72) 10px 11px,
+    rgba(255, 255, 255, 0.6) 10px 11px,
     transparent 11px 14px
   );
 }
@@ -1478,7 +1474,7 @@ textarea {
 .jacket-isbn {
   display: block;
   margin-top: 0.3rem;
-  color: rgba(0, 0, 0, 0.38);
+  color: rgba(255, 255, 255, 0.35);
   font-size: clamp(0.45rem, 0.65vw, 0.58rem);
   letter-spacing: 0.12em;
   text-align: right;
