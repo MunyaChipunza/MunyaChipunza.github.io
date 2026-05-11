@@ -1,7 +1,9 @@
 {
+  "id": "/",
   "name": "Munya Chipunza",
   "short_name": "Munya",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#f6f0e6",
   "theme_color": "#231c13",
