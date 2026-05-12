@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Munya Chipunza</title>
+  <meta name="description" content="The story behind Munya Chipunza: writer, husband, father, and author of reflections on faith, resilience, and hope.">
+  <meta name="robots" content="noindex, follow">
+  <meta property="og:site_name" content="Munya Chipunza">
+  <link rel="canonical" href="https://munyachipunza.com/about/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4J3RHW9XRZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4J3RHW9XRZ');
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── ABOUT HERO ── */
+    .about-hero {
+      padding-top: 4.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 85vh;
+    }
+
+    .about-hero-image {
+      position: relative;
+      overflow: hidden;
+      background: var(--cream-dark);
+    }
+
+    .about-hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: sepia(10%) contrast(1.06);
+    }
+
+    .about-hero-content {
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem;
+    }
+
+    .about-hero-content .section-label {
+      margin-bottom: 1.25rem;
+    }
+
+    .about-hero-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4.5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 1.75rem;
+    }
+
+    .about-hero-headline em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .about-hero-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--ink-light);
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 420px;
+    }
+
+    /* ── STORY SECTION ── */
+    .story-section {
+      padding: 7rem 4rem;
+      background: var(--warm-white);
+    }
+
+    .story-inner {
+      display: grid;
+      grid-template-columns: 1fr 2.5fr;
+      gap: 6rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .story-sidebar {
+      padding-top: 0.5rem;
+    }
+
+    .story-sidebar-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 2rem;
+    }
+
+    .story-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: sticky;
+      top: 6rem;
+    }
+
+    .story-nav a {
+      font-size: 0.82rem;
+      color: var(--ink-faint);
+      text-decoration: none;
+      transition: color 0.2s;
+      line-height: 1.5;
+    }
+    .story-nav a:hover { color: var(--terracotta); }
+
+    .story-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+      margin-top: 3.5rem;
+      line-height: 1.25;
+    }
+    .story-body h2:first-child { margin-top: 0; }
+
+    .story-body p {
+      font-size: 1rem;
+      color: var(--ink-light);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .story-body em { font-style: italic; color: var(--ink); }
+
+    .story-pullquote {
+      margin: 2.5rem 0;
+      padding: 1.75rem 2rem;
+      border-left: 2px solid var(--terracotta);
+      background: var(--cream-dark);
+    }
+
+    .story-pullquote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ── BOOK SECTION ── */
+    .book-section {
+      background: var(--cream-dark);
+      padding: 6rem 4rem;
+    }
+
+    .book-inner {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .book-cover {
+      width: 180px;
+      background: var(--ink);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 260px;
+    }
+
+    .book-cover-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+    }
+
+    .book-cover-line {
+      width: 2rem;
+      height: 1px;
+      background: var(--terracotta);
+      margin: 1rem 0;
+    }
+
+    .book-cover-author {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.4);
+    }
+
+    .book-content .section-label { margin-bottom: 1rem; }
+
+    .book-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    .book-content p {
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+      font-weight: 300;
+    }
+
+    .book-content .coming-soon {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-top: 1.5rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-hero { grid-template-columns: 1fr; min-height: auto; }
+      .about-hero-image { height: 50vh; }
+      .about-hero-content { padding: 3rem 2rem; }
+      .story-section { padding: 4rem 2rem; }
+      .story-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .story-nav { position: static; flex-direction: row; flex-wrap: wrap; gap: 1rem; }
+      .book-section { padding: 4rem 2rem; }
+      .book-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .book-cover { width: 140px; min-height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Munya<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="blog/">Writing</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="about-hero-image">
+    <img
+      src="https://static.wixstatic.com/media/366a4f_9c3b94e50cd74a22a8e098614455dbe9~mv2.jpg/v1/crop/x_159,y_0,w_2682,h_4000/fill/w_900,h_1340,al_c,q_85/photo.jpg"
+      alt="Munya Chipunza"
+      onerror="this.style.display='none'"
+    >
+  </div>
+  <div class="about-hero-content">
+    <p class="section-label">About Munya</p>
+    <h1 class="about-hero-headline">
+      My name means<br><em>comforter.</em><br>I'm still learning<br>to live up to it.
+    </h1>
+    <p class="about-hero-intro">A Zimbabwean in Cape Town, writing through the seasons life doesn't warn you about.</p>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-section">
+  <div class="story-inner">
+    <div class="story-sidebar reveal">
+      <p class="story-sidebar-label">In this page</p>
+      <ul class="story-nav">
+        <li><a href="#origin">The name</a></li>
+        <li><a href="#seasons">The hard seasons</a></li>
+        <li><a href="#why">Why I write</a></li>
+        <li><a href="#today">Who I am today</a></li>
+      </ul>
+    </div>
+    <div class="story-body reveal reveal-delay-1">
+
+      <h2 id="origin">The name</h2>
+      <p>I was born in Zimbabwe and given the name Munyaradzi — which means <em>one who comforts, one who gives hope</em>. It's a heavy name to carry. For most of my life, I wasn't sure I deserved it.</p>
+      <p>Names in Shona culture aren't decorative. They're declarations. A name like mine comes with an expectation — that the person who bears it will be, in some meaningful way, a source of something for the people around them. I spent years trying to figure out what that looked like for me.</p>
+
+      <div class="story-pullquote">
+        <p>"A name like mine comes with an expectation. I spent years trying to figure out what that looked like."</p>
+      </div>
+
+      <h2 id="seasons">The hard seasons</h2>
+      <p>I've sat with hard seasons. I've buried my mother. I've carried an ageing father while trying to hold a family together across two countries. I've led teams under real pressure, made decisions with incomplete information, and managed the particular loneliness of being the person everyone else depends on.</p>
+      <p>I know what it is to look capable on the outside and feel uncertain on the inside. I know what it's like to carry more than you let on. To pray in the dark and hear nothing back. To keep going anyway — not because you're strong, but because the people around you need you to be.</p>
+
+      <h2 id="why">Why I write</h2>
+      <p>Not because I've figured it out. Not because I'm on the other side of anything. But because I've found that when someone else names what you're feeling — when they say <em>me too</em> in a way that actually reaches you — something shifts. You feel less alone. And feeling less alone is sometimes the first step toward finding your footing again.</p>
+      <p>That's what I'm trying to do here. One reflection at a time. Short pieces, honest and human, for anyone who's in a season that's harder than they expected.</p>
+
+      <div class="story-pullquote">
+        <p>"When someone names what you're feeling — something shifts. You feel less alone."</p>
+      </div>
+
+      <h2 id="today">Who I am today</h2>
+      <p>I'm a Zimbabwean living and working in Cape Town. By day, I lead operations for a manufacturing company — 30 people, real stakes, the kind of work that keeps you honest about what leadership actually requires. I'm a father to two sons who remind me daily what matters most. A runner. A reader. A man of imperfect, persistent faith.</p>
+      <p>I write about all of it — the doubts and the convictions, the setbacks and the slow recoveries, the moments when faith felt distant and the moments it held. Not as a polished authority. As a fellow traveller.</p>
+      <p>If you're in a hard season right now — welcome. You're in the right place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section class="book-section" id="book">
+  <div class="book-inner reveal">
+    <div class="book-cover">
+      <div class="book-cover-title">MEN</div>
+      <div>
+        <div class="book-cover-line"></div>
+        <p class="book-cover-author">Munyaradzi Chipunza</p>
+      </div>
+    </div>
+    <div class="book-content">
+      <p class="section-label">The book</p>
+      <h2>A book for the journey</h2>
+      <p>For three years I wrote a book. It's about biblical manhood — not performance, not perfection, but the slow, honest work of becoming who God called you to be. Twelve chapters. A study guide. Written in the margins of a full life.</p>
+      <p>It was written for men who are trying. Who are carrying things. Who believe — or want to — but are tired of being told what that should look like from the outside.</p>
+      <p class="coming-soon">Coming soon — subscribe below to be first to know.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL -->
+<section class="email-section">
+  <h2 class="reveal">Stay in the conversation.</h2>
+  <p class="reveal reveal-delay-1">New reflections, straight to your inbox. No noise, no spam — just words for the road.</p>
+  <form class="email-form reveal reveal-delay-2">
+    <input type="email" placeholder="Your email address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-brand-name">Munya Chipunza</p>
+      <p class="footer-tagline">Reflections on faith, resilience, and hope<br>for anyone navigating a hard season.</p>
+      <div class="footer-social">
+        <a href="https://x.com/Iam_munya" target="_blank" rel="noopener">X</a>
+        <a href="https://www.instagram.com/iam_munya/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.linkedin.com/in/munya-chipunza-73a1a039/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.threads.com/@iam_munya" target="_blank" rel="noopener">Threads</a>
+        <a href="https://www.youtube.com/@Iam_munya" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Navigate</p>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="blog/">Writing</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Connect</p>
+      <a href="mailto:info@munyachipunza.com">info@munyachipunza.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Munya Chipunza. Written in Cape Town, rooted in Zimbabwe.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
