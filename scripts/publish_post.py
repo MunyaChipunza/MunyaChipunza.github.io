@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import argparse
+import html
 import json
 import math
 import re
@@ -7,20 +9,29 @@ import shutil
 import subprocess
 import sys
 import time
-import html
 from datetime import datetime
 from pathlib import Path
 from urllib.request import urlopen
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DRAFT_PATH = ROOT / "new-post.txt"
+DEFAULT_DRAFT_PATH = ROOT / "new-post.txt"
 TEMPLATE_PATH = ROOT / "NEW-POST-TEMPLATE.txt"
 CONTENT_POSTS_DIR = ROOT / "content" / "posts"
 SUBMITTED_DIR = ROOT / "content" / "submitted"
 GOOGLE_DRIVE_TARGET = Path(r"G:\My Drive\100. Zee\Munyachipunza.com")
 SITE_URL = "https://munyachipunza.com"
 REPO = "MunyaChipunza/MunyaChipunza.github.io"
+
+
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Publish a new MunyaChipunza.com reflection.")
+    parser.add_argument(
+        "--draft",
+        default=str(DEFAULT_DRAFT_PATH),
+        help="Path to the draft text file. Defaults to new-post.txt in this repository.",
+    )
+    return parser.parse_args(argv)
 
 
 def run(command: list[str], *, check: bool = True, capture: bool = False) -> subprocess.CompletedProcess[str]:
@@ -127,16 +138,16 @@ def post_date_iso(metadata: dict[str, str]) -> tuple[str, str]:
     return iso_value, file_prefix
 
 
-def parse_draft() -> tuple[dict, Path]:
-    text = DRAFT_PATH.read_text(encoding="utf-8")
+def parse_draft(draft_path: Path) -> tuple[dict, Path]:
+    text = draft_path.read_text(encoding="utf-8")
     metadata, body_lines = split_metadata_and_body(text)
     title = metadata.get("title", "").strip()
     paragraphs = paragraphs_from_lines(body_lines)
 
     if not title or title.lower() == "paste your title here":
-        raise RuntimeError("new-post.txt needs a real TITLE line before publishing.")
+        raise RuntimeError(f"{draft_path} needs a real TITLE line before publishing.")
     if not paragraphs or paragraphs[0].lower() == "paste the body here.":
-        raise RuntimeError("new-post.txt needs the post body before publishing.")
+        raise RuntimeError(f"{draft_path} needs the post body before publishing.")
 
     route = slugify(title)
     if not route:
@@ -320,22 +331,27 @@ def mirror_to_google_drive() -> None:
     print(f"Google Drive mirror updated: {GOOGLE_DRIVE_TARGET}")
 
 
-def reset_draft(post: dict) -> None:
+def reset_draft(post: dict, draft_path: Path) -> None:
     SUBMITTED_DIR.mkdir(parents=True, exist_ok=True)
     submitted_path = SUBMITTED_DIR / f"{post['published_date'][:10]}-{post['route']}.txt"
-    shutil.copy2(DRAFT_PATH, submitted_path)
-    shutil.copy2(TEMPLATE_PATH, DRAFT_PATH)
+    shutil.copy2(draft_path, submitted_path)
+    shutil.copy2(TEMPLATE_PATH, draft_path)
     print(f"Archived submitted draft: {submitted_path}")
-    print("Reset new-post.txt for the next post.")
+    print(f"Reset draft for the next post: {draft_path}")
 
 
-def main() -> int:
-    if not DRAFT_PATH.exists():
-        shutil.copy2(TEMPLATE_PATH, DRAFT_PATH)
-        print("Created new-post.txt. Paste your post into it, save, then run publish-post.bat again.")
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(argv)
+    draft_path = Path(args.draft).expanduser().resolve()
+
+    if not draft_path.exists():
+        draft_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(TEMPLATE_PATH, draft_path)
+        print(f"Created draft file: {draft_path}")
+        print("Paste your post into it, save, then run publish-post.bat again.")
         return 1
 
-    post, post_path = parse_draft()
+    post, post_path = parse_draft(draft_path)
     print(f"Preparing: {post['title']}")
     print(f"URL: {SITE_URL}/writing/{post['route']}/")
 
@@ -351,7 +367,7 @@ def main() -> int:
     wait_for_deploy_and_notification(commit)
     verify_live_page(post)
     mirror_to_google_drive()
-    reset_draft(post)
+    reset_draft(post, draft_path)
     print(f"Done: {SITE_URL}/writing/{post['route']}/")
     return 0
 

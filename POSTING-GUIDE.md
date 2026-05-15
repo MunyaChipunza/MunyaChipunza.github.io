@@ -1,5 +1,7 @@
 # Posting A New Reflection
 
+Use the files in `G:\My Drive\100. Zee\Munyachipunza.com`.
+
 1. Open `new-post.txt`.
 2. Replace the template with your post.
 3. Keep the first line as `TITLE: Your title`.
@@ -8,4 +10,4 @@
 6. Save the file.
 7. Double-click `publish-post.bat`.
 
-The script will generate the site, push it to GitHub Pages, wait for deployment, trigger the subscriber email, and mirror the files to Google Drive.
+The script will use the clean publishing repo at `C:\Users\Dell\Projects\munya-publish`, generate the site, push it to GitHub Pages, wait for deployment, trigger the subscriber email, mirror the files back to Google Drive, then reset `new-post.txt` for the next post.
