@@ -19,6 +19,7 @@ SITE_DESCRIPTION = "Personal essays by Munya Chipunza on faith, resilience, fath
 BLOG_APP_ID = "14bcded7-0066-7c35-14d7-466cb3f09103"
 POSTS_PER_PAGE = 5
 ASSET_VERSION = "20260509a"
+CONTENT_POSTS_DIR = ROOT / "content" / "posts"
 GOOGLE_ANALYTICS_TAG = """    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4J3RHW9XRZ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -1757,12 +1758,45 @@ def write(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8", newline="\n")
 
 
+def load_content_posts() -> list[dict]:
+    if not CONTENT_POSTS_DIR.exists():
+        return []
+
+    posts: list[dict] = []
+    required_fields = {"route", "title", "published_date", "updated_date", "paragraphs"}
+    for path in sorted(CONTENT_POSTS_DIR.glob("*.json")):
+        post = json.loads(path.read_text(encoding="utf-8"))
+        missing = required_fields - set(post)
+        if missing:
+            raise ValueError(f"{path} is missing required field(s): {', '.join(sorted(missing))}")
+
+        post.setdefault("old_slug", post["route"])
+        post.setdefault("tag", "Reflection")
+        post.setdefault("summary", first_paragraph_plain(post))
+        post.setdefault("excerpt", post.get("summary") or first_paragraph_plain(post))
+        post.setdefault("minutes_to_read", 2)
+        post.setdefault("image_url", f"{SITE_URL}/assets/images/munya-home.jpg")
+        posts.append(post)
+
+    return posts
+
+
 def main() -> None:
     # Legacy Wix posts have been migrated into LOCAL_POSTS, so the generator
     # no longer needs to call the Wix API. The fetch_access_token() and
     # fetch_posts() helpers are kept below as reference if a future re-import
     # from the legacy host is ever needed.
-    posts = [dict(post) for post in LOCAL_POSTS]
+    posts = load_content_posts() + [dict(post) for post in LOCAL_POSTS]
+    seen_routes: set[str] = set()
+    duplicate_routes: set[str] = set()
+    for post in posts:
+        route = post["route"]
+        if route in seen_routes:
+            duplicate_routes.add(route)
+        seen_routes.add(route)
+    if duplicate_routes:
+        raise ValueError(f"Duplicate post route(s): {', '.join(sorted(duplicate_routes))}")
+
     posts.sort(key=lambda post: post["published_date"], reverse=True)
     total_pages = (len(posts) + POSTS_PER_PAGE - 1) // POSTS_PER_PAGE
 

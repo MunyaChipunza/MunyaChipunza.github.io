@@ -1,0 +1,8 @@
+TITLE: Paste your title here
+TAG: Reflection
+
+Paste the body here.
+
+Use a blank line between paragraphs.
+
+When ready, save this file as new-post.txt in this folder, then double-click publish-post.bat.
