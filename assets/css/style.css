@@ -1069,80 +1069,61 @@ textarea {
 
 .engagement-section {
   width: min(calc(100% - 2.4rem), var(--reading-width));
-  margin: 0 auto 3.4rem;
+  margin: 0 auto 2.6rem;
 }
 
-.engagement-panel {
-  padding: 1.85rem;
-  display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
-  gap: 1.6rem;
-  align-items: start;
+.post-actions {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 0.55rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
-.engagement-copy h2 {
-  margin: 0 0 0.75rem;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.9rem, 3vw, 2.55rem);
-  font-weight: 400;
-}
-
-.engagement-copy p {
-  margin: 0 0 1.2rem;
-  color: var(--ink-soft);
-}
-
-.like-button {
-  border: 1px solid rgba(156, 86, 56, 0.24);
+.post-action-button {
+  border: 0;
   border-radius: 999px;
-  background: rgba(156, 86, 56, 0.08);
-  color: var(--rust);
-  min-height: 3.15rem;
-  padding: 0 1.15rem;
+  background: transparent;
+  color: var(--ink-soft);
+  min-height: 2.45rem;
+  padding: 0 0.9rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  justify-content: center;
   font: inherit;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.like-button:hover {
-  transform: translateY(-1px);
-  border-color: rgba(156, 86, 56, 0.42);
-  background: rgba(156, 86, 56, 0.13);
+.post-action-button:hover,
+.post-action-button:focus-visible {
+  background: rgba(156, 86, 56, 0.09);
+  color: var(--rust);
 }
 
-.like-button.is-liked {
-  border-color: rgba(120, 150, 120, 0.38);
-  background: rgba(120, 150, 120, 0.15);
-  color: var(--olive);
-}
-
-.like-mark {
-  font-size: 1.2rem;
-  line-height: 1;
-}
-
-.like-note {
-  margin-top: 0.7rem;
-  color: var(--ink-faint);
-  font-size: 0.82rem;
-}
-
-.like-note[data-state="success"] {
-  color: var(--olive);
+.post-action-button.is-liked,
+.post-action-button.is-open {
+  background: rgba(156, 86, 56, 0.12);
+  color: var(--rust);
 }
 
 .comment-form-shell {
-  min-width: 0;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 252, 246, 0.58);
+}
+
+.comment-form-shell[hidden] {
+  display: none;
 }
 
 .response-form textarea {
-  min-height: 8.5rem;
+  min-height: 7rem;
+  resize: vertical;
 }
 
 .article-nav {
@@ -1919,7 +1900,6 @@ textarea {
   .book-panel,
   .story-layout,
   .subscribe-panel,
-  .engagement-panel,
   .shop-hero,
   .shop-purchase-grid,
   .shop-info-grid,

@@ -1342,37 +1342,34 @@ def render_article_nav(posts: list[dict], index: int) -> str:
 def render_engagement_section(post: dict, canonical: str) -> str:
     title = post["title"]
     source = f"comment: {post['route']}"
-    return f"""      <section class="engagement-section" id="responses" aria-labelledby="responses-title">
-        <div class="engagement-panel will-reveal">
-          <div class="engagement-copy">
-            <p class="eyebrow">Reader response</p>
-            <h2 id="responses-title">Did this meet you?</h2>
-            <p>Tap the button if it resonated, or leave a private comment below. Comments come through to Munya directly.</p>
-            <button class="like-button" type="button" data-like-button data-article-title="{escape_attr(title)}" data-article-path="/writing/{post['route']}/" aria-pressed="false">
-              <span class="like-mark" aria-hidden="true">♥</span>
-              <span data-like-label>I needed this</span>
-            </button>
-            <p class="like-note" data-like-status>One tap. No account needed.</p>
-          </div>
-          <div class="comment-form-shell">
-            <form class="signup-form full response-form" name="post-comment" method="POST" action="{CONTACT_FORM_ACTION}" data-contact-form data-ajax-action="{CONTACT_FORM_AJAX}" data-analytics-source="{escape_attr(source)}" data-pending-message="Sending your comment..." data-success-message="Thank you. Your comment has been sent." data-success-button-label="Comment sent">
-              <input type="hidden" name="_subject" value="{escape_attr(f'New comment on {title}')}">
-              <input type="hidden" name="_template" value="table">
-              <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_next" value="{CONTACT_SUCCESS_URL}">
-              <input type="hidden" name="form_type" value="post_comment">
-              <input type="hidden" name="article_title" value="{escape_attr(title)}">
-              <input type="hidden" name="article_url" value="{escape_attr(canonical)}">
-              <p class="sr-only">
-                <label>Do not fill this out if you are human <input name="_honey" tabindex="-1" autocomplete="off"></label>
-              </p>
-              <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
-              <input type="email" name="email" placeholder="Your email address" autocomplete="email" required>
-              <textarea class="full-row" name="comment" placeholder="Leave a comment on this reflection" required></textarea>
-              <button class="button button-primary full-row" type="submit">Leave comment</button>
-            </form>
-            <p class="form-note" data-form-status aria-live="polite">Private comment. It lands in Munya's inbox.</p>
-          </div>
+    comment_id = f"comment-form-{post['route']}"
+    return f"""      <section class="engagement-section" id="responses" aria-label="Respond to this reflection">
+        <div class="post-actions will-reveal">
+          <button class="post-action-button like-button" type="button" data-like-button data-article-title="{escape_attr(title)}" data-article-path="/writing/{post['route']}/" aria-pressed="false">
+            <span data-like-label>Like</span>
+          </button>
+          <button class="post-action-button comment-button" type="button" data-comment-toggle data-article-title="{escape_attr(title)}" data-article-path="/writing/{post['route']}/" aria-expanded="false" aria-controls="{comment_id}">
+            Comment
+          </button>
+        </div>
+        <div class="comment-form-shell" id="{comment_id}" hidden>
+          <form class="signup-form full response-form" name="post-comment" method="POST" action="{CONTACT_FORM_ACTION}" data-contact-form data-ajax-action="{CONTACT_FORM_AJAX}" data-analytics-source="{escape_attr(source)}" data-pending-message="Sending your comment..." data-success-message="Thank you. Your comment has been sent." data-success-button-label="Comment sent">
+            <input type="hidden" name="_subject" value="{escape_attr(f'New comment on {title}')}">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="{CONTACT_SUCCESS_URL}">
+            <input type="hidden" name="form_type" value="post_comment">
+            <input type="hidden" name="article_title" value="{escape_attr(title)}">
+            <input type="hidden" name="article_url" value="{escape_attr(canonical)}">
+            <p class="sr-only">
+              <label>Do not fill this out if you are human <input name="_honey" tabindex="-1" autocomplete="off"></label>
+            </p>
+            <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+            <input type="email" name="email" placeholder="Your email address" autocomplete="email" required>
+            <textarea class="full-row" name="comment" placeholder="Write a comment..." required></textarea>
+            <button class="button button-primary full-row" type="submit">Post comment</button>
+          </form>
+          <p class="form-note" data-form-status aria-live="polite">Your comment goes privately to Munya.</p>
         </div>
       </section>"""
 

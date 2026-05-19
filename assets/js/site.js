@@ -145,6 +145,37 @@ document.querySelectorAll("[data-like-button]").forEach((button) => {
   });
 });
 
+document.querySelectorAll("[data-comment-toggle]").forEach((button) => {
+  const targetId = button.getAttribute("aria-controls");
+  const panel = targetId ? document.getElementById(targetId) : null;
+  const articleTitle = button.dataset.articleTitle || document.querySelector(".article-hero h1")?.textContent?.trim() || document.title;
+  const articlePath = button.dataset.articlePath || window.location.pathname;
+
+  if (!panel) {
+    return;
+  }
+
+  button.addEventListener("click", () => {
+    const willOpen = panel.hasAttribute("hidden");
+
+    if (willOpen) {
+      panel.removeAttribute("hidden");
+      button.setAttribute("aria-expanded", "true");
+      button.classList.add("is-open");
+      trackEvent("article_comment_open", {
+        article_title: articleTitle,
+        article_path: articlePath,
+      });
+      panel.querySelector('input:not([type="hidden"]):not([tabindex="-1"]), textarea')?.focus();
+      return;
+    }
+
+    panel.setAttribute("hidden", "");
+    button.setAttribute("aria-expanded", "false");
+    button.classList.remove("is-open");
+  });
+});
+
 document.querySelectorAll("[data-contact-form], [data-subscribe-form]").forEach((form) => {
   const button = form.querySelector('button[type="submit"]');
   const note = form.parentElement?.querySelector("[data-form-status]");
