@@ -98,6 +98,53 @@ document.querySelectorAll("a[data-share-platform]").forEach((link) => {
   });
 });
 
+document.querySelectorAll("[data-like-button]").forEach((button) => {
+  const label = button.querySelector("[data-like-label]");
+  const status = button.parentElement?.querySelector("[data-like-status]");
+  const articleTitle = button.dataset.articleTitle || document.querySelector(".article-hero h1")?.textContent?.trim() || document.title;
+  const articlePath = button.dataset.articlePath || window.location.pathname;
+  const storageKey = `munya:liked:${articlePath}`;
+
+  const setLiked = () => {
+    button.classList.add("is-liked");
+    button.setAttribute("aria-pressed", "true");
+    if (label) {
+      label.textContent = "Liked";
+    }
+    if (status) {
+      status.textContent = "Saved on this browser.";
+      status.dataset.state = "success";
+    }
+  };
+
+  try {
+    if (window.localStorage.getItem(storageKey) === "1") {
+      setLiked();
+    }
+  } catch (error) {
+    // Some privacy modes block storage; the button should still track the tap.
+  }
+
+  button.addEventListener("click", () => {
+    const wasLiked = button.getAttribute("aria-pressed") === "true";
+    if (wasLiked) {
+      return;
+    }
+
+    try {
+      window.localStorage.setItem(storageKey, "1");
+    } catch (error) {
+      // Ignore storage failures and still acknowledge the reader's tap.
+    }
+
+    setLiked();
+    trackEvent("article_like", {
+      article_title: articleTitle,
+      article_path: articlePath,
+    });
+  });
+});
+
 document.querySelectorAll("[data-contact-form], [data-subscribe-form]").forEach((form) => {
   const button = form.querySelector('button[type="submit"]');
   const note = form.parentElement?.querySelector("[data-form-status]");

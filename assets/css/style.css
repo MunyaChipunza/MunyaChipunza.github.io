@@ -1067,6 +1067,84 @@ textarea {
   color: #8c4949;
 }
 
+.engagement-section {
+  width: min(calc(100% - 2.4rem), var(--reading-width));
+  margin: 0 auto 3.4rem;
+}
+
+.engagement-panel {
+  padding: 1.85rem;
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 1.6rem;
+  align-items: start;
+}
+
+.engagement-copy h2 {
+  margin: 0 0 0.75rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.9rem, 3vw, 2.55rem);
+  font-weight: 400;
+}
+
+.engagement-copy p {
+  margin: 0 0 1.2rem;
+  color: var(--ink-soft);
+}
+
+.like-button {
+  border: 1px solid rgba(156, 86, 56, 0.24);
+  border-radius: 999px;
+  background: rgba(156, 86, 56, 0.08);
+  color: var(--rust);
+  min-height: 3.15rem;
+  padding: 0 1.15rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font: inherit;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.like-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(156, 86, 56, 0.42);
+  background: rgba(156, 86, 56, 0.13);
+}
+
+.like-button.is-liked {
+  border-color: rgba(120, 150, 120, 0.38);
+  background: rgba(120, 150, 120, 0.15);
+  color: var(--olive);
+}
+
+.like-mark {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.like-note {
+  margin-top: 0.7rem;
+  color: var(--ink-faint);
+  font-size: 0.82rem;
+}
+
+.like-note[data-state="success"] {
+  color: var(--olive);
+}
+
+.comment-form-shell {
+  min-width: 0;
+}
+
+.response-form textarea {
+  min-height: 8.5rem;
+}
+
 .article-nav {
   width: min(calc(100% - 2.4rem), var(--reading-width));
   margin: 0 auto 4rem;
@@ -1841,6 +1919,7 @@ textarea {
   .book-panel,
   .story-layout,
   .subscribe-panel,
+  .engagement-panel,
   .shop-hero,
   .shop-purchase-grid,
   .shop-info-grid,
@@ -2065,6 +2144,7 @@ textarea {
   .page-hero,
   .article-hero,
   .article-body,
+  .engagement-section,
   .share-strip,
   .article-nav,
   .thanks-card,
