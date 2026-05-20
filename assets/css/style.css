@@ -1068,61 +1068,149 @@ textarea {
 }
 
 .engagement-section {
-  width: min(calc(100% - 2.4rem), var(--reading-width));
-  margin: 0 auto 2.6rem;
+  width: min(calc(100% - 2.4rem), 940px);
+  margin: 0 auto 4rem;
 }
 
-.post-actions {
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 0.55rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
+.quiet-response-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(145deg, rgba(255, 252, 246, 0.86), rgba(239, 229, 212, 0.58)),
+    rgba(255, 252, 246, 0.68);
+  box-shadow: var(--shadow);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
 }
 
-.post-action-button {
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
+.quiet-response-intro {
+  max-width: 48rem;
+  margin-bottom: 1.4rem;
+}
+
+.quiet-response-intro h2 {
+  margin: 0 0 0.85rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.15rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.quiet-response-intro p:last-child {
+  margin: 0;
   color: var(--ink-soft);
-  min-height: 2.45rem;
-  padding: 0 0.9rem;
+}
+
+.quiet-response-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.quiet-response-card {
+  min-height: 100%;
+  border: 1px solid rgba(35, 28, 19, 0.11);
+  border-radius: 24px;
+  background: rgba(255, 252, 246, 0.62);
+  padding: 1.2rem;
+}
+
+.quiet-response-card h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1.02rem;
+  letter-spacing: 0.03em;
+}
+
+.quiet-response-card p {
+  margin: 0 0 1rem;
+  color: var(--ink-soft);
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.form-field {
+  min-width: 0;
+}
+
+.quiet-share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: center;
+}
+
+.quiet-share-action {
+  min-width: 2.85rem;
+  height: 2.85rem;
+  border: 1px solid rgba(71, 55, 39, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.56);
+  color: var(--ink-soft);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.45rem;
+  padding: 0 0.9rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+button.quiet-share-action {
   font: inherit;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.post-action-button:hover,
-.post-action-button:focus-visible {
-  background: rgba(156, 86, 56, 0.09);
+.quiet-share-action svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+.quiet-share-action:hover,
+.quiet-share-action:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(181, 122, 74, 0.34);
+  background: rgba(181, 122, 74, 0.08);
   color: var(--rust);
 }
 
-.post-action-button.is-liked,
-.post-action-button.is-open {
-  background: rgba(156, 86, 56, 0.12);
-  color: var(--rust);
+.quiet-copy-action.is-copied {
+  border-color: rgba(120, 150, 120, 0.34);
+  background: rgba(120, 150, 120, 0.12);
+  color: #4c6a4c;
 }
 
-.comment-form-shell {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background: rgba(255, 252, 246, 0.58);
+.quiet-copy-action.is-error {
+  border-color: rgba(168, 79, 79, 0.34);
+  background: rgba(168, 79, 79, 0.08);
+  color: #8c4949;
 }
 
-.comment-form-shell[hidden] {
+.quiet-share-note {
+  margin: 0.85rem 0 0;
+  color: var(--ink-faint) !important;
+  font-size: 0.86rem;
+}
+
+.quiet-native-share[hidden] {
   display: none;
 }
 
-.response-form textarea {
-  min-height: 7rem;
+.quiet-note-form {
+  margin-top: 1rem;
+}
+
+.quiet-note-form textarea {
+  min-height: 8rem;
   resize: vertical;
 }
 
@@ -1980,6 +2068,7 @@ textarea {
 
   .signup-form,
   .signup-form.full,
+  .quiet-response-grid,
   .article-card,
   .article-nav,
   .footer-bottom {
@@ -2022,12 +2111,18 @@ textarea {
   .form-panel,
   .contact-panel,
   .subscribe-panel,
+  .quiet-response-panel,
   .shop-card,
   .shop-info-card,
   .shop-cover-stage,
   .footer-shell {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+
+  .quiet-copy-action,
+  .quiet-native-share {
+    width: 100%;
   }
 
   .shop-hero {
