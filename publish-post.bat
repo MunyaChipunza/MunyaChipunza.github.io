@@ -28,6 +28,20 @@ if not exist "%DRAFT_FILE%" (
 
 cd /d "%CLEAN_REPO%"
 
+git switch main
+if not "%ERRORLEVEL%"=="0" (
+  echo Could not switch the clean publishing repo to main.
+  pause
+  exit /b 1
+)
+
+git pull --ff-only origin main
+if not "%ERRORLEVEL%"=="0" (
+  echo Could not update the clean publishing repo from GitHub.
+  pause
+  exit /b 1
+)
+
 where py >nul 2>nul
 if %ERRORLEVEL%==0 (
   py -3 scripts\publish_post.py --draft "%DRAFT_FILE%"

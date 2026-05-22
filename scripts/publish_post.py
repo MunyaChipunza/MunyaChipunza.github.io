@@ -178,6 +178,11 @@ def assert_clean_worktree() -> None:
         raise RuntimeError("Git working tree is not clean. Commit or stash existing changes before publishing.")
 
 
+def sync_main_branch() -> None:
+    run(["git", "switch", "main"])
+    run(["git", "pull", "--ff-only", "origin", "main"])
+
+
 def write_post_file(post: dict, post_path: Path) -> None:
     if post_path.exists():
         raise RuntimeError(f"Post file already exists: {post_path}")
@@ -356,7 +361,8 @@ def main(argv: list[str] | None = None) -> int:
     print(f"URL: {SITE_URL}/writing/{post['route']}/")
 
     assert_clean_worktree()
-    run(["git", "pull", "--ff-only", "origin", "main"])
+    sync_main_branch()
+    assert_clean_worktree()
     write_post_file(post, post_path)
     run([sys.executable, "scripts/generate_writing.py"])
     validate_generated_site(post)
@@ -366,8 +372,8 @@ def main(argv: list[str] | None = None) -> int:
     run(["git", "push", "origin", "main"])
     wait_for_deploy_and_notification(commit)
     verify_live_page(post)
-    mirror_to_google_drive()
     reset_draft(post, draft_path)
+    mirror_to_google_drive()
     print(f"Done: {SITE_URL}/writing/{post['route']}/")
     return 0
 
