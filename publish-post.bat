@@ -3,7 +3,7 @@ setlocal
 
 set "BUTTON_FOLDER=%~dp0"
 set "CLEAN_REPO=C:\Users\Dell\Projects\munya-publish"
-set "DRAFT_FILE=%BUTTON_FOLDER%new-post.txt"
+set "DRAFT_FILE=%BUTTON_FOLDER%PASTE NEW POST IN HERE.txt"
 set "LOCAL_TEMPLATE=%BUTTON_FOLDER%NEW-POST-TEMPLATE.txt"
 
 if not exist "%CLEAN_REPO%\scripts\publish_post.py" (
@@ -20,7 +20,7 @@ if not exist "%DRAFT_FILE%" (
     copy "%CLEAN_REPO%\NEW-POST-TEMPLATE.txt" "%DRAFT_FILE%" >nul
   )
   echo Created %DRAFT_FILE%.
-  echo Paste your post into that file, save it, then double-click publish-post.bat again.
+  echo Paste your post into that file, save it, then double-click DOUBLE CLICK TO ACTIVATE NEW POST.bat again.
   start notepad "%DRAFT_FILE%"
   pause
   exit /b 1
@@ -52,7 +52,7 @@ if %ERRORLEVEL%==0 (
 set RESULT=%ERRORLEVEL%
 echo.
 if not "%RESULT%"=="0" (
-  echo Publishing failed. The draft was left in new-post.txt so it can be retried.
+  echo Publishing failed. The draft was left in PASTE NEW POST IN HERE.txt so it can be retried.
   pause
   exit /b %RESULT%
 )
