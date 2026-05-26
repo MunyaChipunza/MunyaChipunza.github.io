@@ -8,8 +8,9 @@ import os
 import re
 import sys
 import tempfile
+import time
 from pathlib import Path
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 
@@ -19,6 +20,8 @@ AUDIO_DIR = ROOT / "assets" / "audio"
 DEFAULT_MODEL_ID = "eleven_multilingual_v2"
 DEFAULT_OUTPUT_FORMAT = "mp3_44100_128"
 CHUNK_LIMIT = 4300
+MAX_RETRIES = 4
+RETRY_HTTP_CODES = {408, 409, 425, 429, 500, 502, 503, 504}
 _WRITING_GENERATOR = None
 
 
@@ -159,12 +162,21 @@ def elevenlabs_request(text: str, *, api_key: str, voice_id: str) -> bytes:
         },
         method="POST",
     )
-    try:
-        with urlopen(request, timeout=180) as response:
-            return response.read()
-    except HTTPError as error:
-        details = error.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"ElevenLabs returned HTTP {error.code}: {details[:600]}") from error
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            with urlopen(request, timeout=180) as response:
+                return response.read()
+        except HTTPError as error:
+            details = error.read().decode("utf-8", errors="replace")
+            if error.code not in RETRY_HTTP_CODES or attempt == MAX_RETRIES:
+                raise RuntimeError(f"ElevenLabs returned HTTP {error.code}: {details[:600]}") from error
+            print(f"ElevenLabs HTTP {error.code}; retrying request {attempt + 1}/{MAX_RETRIES}")
+        except (ConnectionResetError, TimeoutError, URLError, OSError) as error:
+            if attempt == MAX_RETRIES:
+                raise RuntimeError(f"ElevenLabs request failed after {MAX_RETRIES} attempts: {error}") from error
+            print(f"ElevenLabs connection issue; retrying request {attempt + 1}/{MAX_RETRIES}")
+        time.sleep(min(2 * attempt, 10))
+    raise RuntimeError("ElevenLabs request failed unexpectedly.")
 
 
 def selected_posts(posts: list[dict], args: argparse.Namespace) -> list[dict]:

@@ -16,6 +16,13 @@ if errorlevel 2 exit /b 0
 
 cd /d "%CLEAN_REPO%"
 
+if "%ELEVENLABS_API_KEY%"=="" (
+  for /f "tokens=2,*" %%A in ('reg query HKCU\Environment /v ELEVENLABS_API_KEY 2^>nul') do set "ELEVENLABS_API_KEY=%%B"
+)
+if "%ELEVENLABS_VOICE_ID%"=="" (
+  for /f "tokens=2,*" %%A in ('reg query HKCU\Environment /v ELEVENLABS_VOICE_ID 2^>nul') do set "ELEVENLABS_VOICE_ID=%%B"
+)
+
 git switch main
 if not "%ERRORLEVEL%"=="0" (
   echo Could not switch to main.
