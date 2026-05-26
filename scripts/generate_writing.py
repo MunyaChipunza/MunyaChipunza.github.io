@@ -18,8 +18,9 @@ SITE_URL = "https://munyachipunza.com"
 SITE_DESCRIPTION = "Personal essays by Munya Chipunza on faith, resilience, fatherhood, grief, leadership, and finding hope in hard seasons."
 BLOG_APP_ID = "14bcded7-0066-7c35-14d7-466cb3f09103"
 POSTS_PER_PAGE = 5
-ASSET_VERSION = "20260509a"
+ASSET_VERSION = "20260526a"
 CONTENT_POSTS_DIR = ROOT / "content" / "posts"
+AUDIO_DIR = ROOT / "assets" / "audio"
 GOOGLE_ANALYTICS_TAG = """    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4J3RHW9XRZ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -1035,6 +1036,36 @@ def render_article_body(post: dict) -> str:
     return "\n          ".join(blocks)
 
 
+def post_audio_url(post: dict) -> str:
+    if post.get("audio_url"):
+        return str(post["audio_url"])
+    audio_path = AUDIO_DIR / f"{post['route']}.mp3"
+    if audio_path.exists():
+        return f"/assets/audio/{post['route']}.mp3"
+    return ""
+
+
+def render_audio_player(post: dict) -> str:
+    audio_url = post_audio_url(post)
+    if not audio_url:
+        return ""
+
+    title = escape_attr(post["title"])
+    route = escape_attr(post["route"])
+    return f"""
+        <div class="post-audio" data-audio-player data-audio-route="{route}">
+          <button class="audio-toggle" type="button" data-audio-toggle aria-label="Listen to {title}" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5v14l11-7L8 5Z"></path>
+            </svg>
+            <span data-audio-label>Listen to this reflection</span>
+          </button>
+          <audio class="audio-control" controls preload="none" src="{escape_attr(audio_url)}">
+            Your browser does not support audio playback.
+          </audio>
+        </div>"""
+
+
 def article_description(post: dict) -> str:
     return text_snippet(summary_source(post), 158)
 
@@ -1465,6 +1496,7 @@ def render_article_page(post: dict, posts: list[dict], index: int) -> str:
           <span>{format_date(post["published_date"])}</span>
           <span>{reading_time_label(post["minutes_to_read"])}</span>
         </div>
+{render_audio_player(post)}
       </section>
 
       <article class="article-body">

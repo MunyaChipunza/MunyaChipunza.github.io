@@ -10,3 +10,6 @@ munyachipunza/
 subscribers-buttondown.csv
 new-post.txt
 content/submitted/
+.env
+.env.local
+elevenlabs.env

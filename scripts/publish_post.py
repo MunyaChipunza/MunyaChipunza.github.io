@@ -364,6 +364,7 @@ def main(argv: list[str] | None = None) -> int:
     sync_main_branch()
     assert_clean_worktree()
     write_post_file(post, post_path)
+    run([sys.executable, "scripts/generate_audio.py", "--route", post["route"], "--skip-if-unconfigured"])
     run([sys.executable, "scripts/generate_writing.py"])
     validate_generated_site(post)
     run(["git", "add", "--all"])
