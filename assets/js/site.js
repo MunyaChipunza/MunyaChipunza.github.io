@@ -21,6 +21,41 @@ const analyticsFormSource = (form) =>
   form.getAttribute("name") ||
   "unknown";
 
+const formValue = (form, name) => {
+  const field = form.querySelector(`[name="${name}"]`);
+  return field?.value?.trim() || "";
+};
+
+const openMailtoFallback = (form) => {
+  const recipient = form.dataset.mailtoFallback;
+  if (!recipient) {
+    return false;
+  }
+
+  const subject =
+    formValue(form, "_subject") ||
+    (form.getAttribute("name") === "private-note" ? "Private note from munyachipunza.com" : "Message from munyachipunza.com");
+  const name = formValue(form, "name") || "Not provided";
+  const senderEmail = formValue(form, "email") || "Not provided";
+  const message = formValue(form, "message") || "No message entered";
+  const articleTitle = formValue(form, "article_title");
+  const articleUrl = formValue(form, "article_url") || window.location.href;
+  const source = analyticsFormSource(form);
+  const bodyLines = [
+    message,
+    "",
+    "---",
+    `Name: ${name}`,
+    `Email: ${senderEmail}`,
+    articleTitle ? `Reflection: ${articleTitle}` : "",
+    `Page: ${articleUrl}`,
+    `Source: ${source}`,
+  ].filter(Boolean);
+
+  window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+  return true;
+};
+
 if (navToggle && navLinks) {
   navToggle.addEventListener("click", () => {
     const expanded = navToggle.getAttribute("aria-expanded") === "true";
@@ -134,6 +169,8 @@ document.querySelectorAll("[data-contact-form], [data-subscribe-form]").forEach(
   const isSubscribe = form.hasAttribute("data-subscribe-form");
   const isButtondownSubscribe = isSubscribe && form.action.includes("buttondown.com/api/emails/embed-subscribe/");
   const ajaxAction = form.dataset.ajaxAction;
+  const mailtoFallback = form.dataset.mailtoFallback;
+  const useMailtoSubmit = mailtoFallback && form.dataset.submitMode === "mailto";
   const pendingMessage =
     form.dataset.pendingMessage || (isSubscribe ? "Saving your subscription..." : "Sending your note...");
   const successMessage =
@@ -154,6 +191,63 @@ document.querySelectorAll("[data-contact-form], [data-subscribe-form]").forEach(
           form_provider: "buttondown",
           form_source: analyticsFormSource(form),
         });
+      }
+    });
+    return;
+  }
+
+  if (useMailtoSubmit) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (!form.reportValidity()) {
+        return;
+      }
+
+      const eventPrefix = isSubscribe ? "newsletter_subscribe" : "contact_form";
+      trackEvent(`${eventPrefix}_submit`, {
+        form_provider: "mailto",
+        form_source: analyticsFormSource(form),
+      });
+
+      const originalLabel = button?.textContent ?? "";
+      if (button) {
+        button.disabled = true;
+        button.textContent = pendingMessage;
+      }
+
+      try {
+        openMailtoFallback(form);
+        trackEvent(`${eventPrefix}_success`, {
+          form_provider: "mailto",
+          form_source: analyticsFormSource(form),
+        });
+        if (note) {
+          note.dataset.state = "success";
+          note.textContent = successMessage;
+        }
+        if (button) {
+          button.textContent = successButtonLabel;
+        }
+      } catch (error) {
+        trackEvent(`${eventPrefix}_error`, {
+          form_provider: "mailto",
+          form_source: analyticsFormSource(form),
+        });
+        if (note) {
+          note.dataset.state = "error";
+          note.textContent = errorMessage;
+        }
+        if (button) {
+          button.textContent = errorButtonLabel;
+        }
+      } finally {
+        window.setTimeout(() => {
+          if (button) {
+            button.disabled = false;
+            button.textContent = originalLabel;
+          }
+        }, 2200);
       }
     });
     return;
@@ -218,6 +312,20 @@ document.querySelectorAll("[data-contact-form], [data-subscribe-form]").forEach(
         form_provider: "formsubmit",
         form_source: analyticsFormSource(form),
       });
+      if (mailtoFallback && openMailtoFallback(form)) {
+        trackEvent(`${eventPrefix}_success`, {
+          form_provider: "mailto_fallback",
+          form_source: analyticsFormSource(form),
+        });
+        if (note) {
+          note.dataset.state = "success";
+          note.textContent = successMessage;
+        }
+        if (button) {
+          button.textContent = successButtonLabel;
+        }
+        return;
+      }
       if (note) {
         note.dataset.state = "error";
         note.textContent = errorMessage;
