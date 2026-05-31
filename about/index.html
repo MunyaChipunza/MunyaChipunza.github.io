@@ -160,20 +160,20 @@
             <p class="eyebrow">Stay in touch</p>
             <h2>Send a note.</h2>
             <p>If the writing meets you where you are, send a direct message here.</p>
-            <form class="signup-form full" name="contact" method="POST" action="https://formsubmit.co/02774129a6ffd7df5b31b69ff0886e06" data-contact-form data-ajax-action="https://formsubmit.co/ajax/02774129a6ffd7df5b31b69ff0886e06" data-analytics-source="about" id="contact-form">
-              <input type="hidden" name="_subject" value="New message from munyachipunza.com">
-              <input type="hidden" name="_template" value="table">
-              <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_next" value="https://munyachipunza.com/thanks">
+            <form class="signup-form full" name="contact" method="POST" action="https://api.web3forms.com/submit" data-contact-form data-form-provider="web3forms" data-ajax-action="https://api.web3forms.com/submit" data-analytics-source="about" data-pending-message="Sending your private note..." data-success-message="Thank you. Your message has reached me privately." data-error-message="The note could not send from the website. Please try again, or email hello@munyachipunza.com directly." data-success-button-label="Message sent" id="contact-form">
+              <input type="hidden" name="access_key" value="d3182889-08c5-400f-a32d-3fced0309f09">
+              <input type="hidden" name="subject" value="New message from munyachipunza.com">
+              <input type="hidden" name="from_name" value="MunyaChipunza.com">
+              <input type="hidden" name="redirect" value="https://munyachipunza.com/thanks">
               <p class="sr-only">
-                <label>Do not fill this out if you are human <input name="_honey" tabindex="-1" autocomplete="off"></label>
+                <label>Leave this field empty <input name="botcheck" tabindex="-1" autocomplete="off"></label>
               </p>
               <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
               <input type="email" name="email" placeholder="Your email address" autocomplete="email" required>
               <textarea class="full-row" name="message" placeholder="Your message" required></textarea>
               <button class="button button-primary full-row" type="submit">Send message</button>
             </form>
-            <p class="form-note" data-form-status aria-live="polite">Your note comes through privately and lands in Munya's inbox.</p>
+            <p class="form-note" data-form-status aria-live="polite">Your note sends privately from this page.</p>
           </div>
 
           <aside class="contact-panel will-reveal">

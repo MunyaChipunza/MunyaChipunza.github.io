@@ -18,7 +18,7 @@ SITE_URL = "https://munyachipunza.com"
 SITE_DESCRIPTION = "Personal essays by Munya Chipunza on faith, resilience, fatherhood, grief, leadership, and finding hope in hard seasons."
 BLOG_APP_ID = "14bcded7-0066-7c35-14d7-466cb3f09103"
 POSTS_PER_PAGE = 5
-ASSET_VERSION = "20260531a"
+ASSET_VERSION = "20260531b"
 CONTENT_POSTS_DIR = ROOT / "content" / "posts"
 AUDIO_DIR = ROOT / "assets" / "audio"
 GOOGLE_ANALYTICS_TAG = """    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4J3RHW9XRZ"></script>
@@ -34,8 +34,10 @@ ICON_LINKS = """    <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">"""
 SUBSCRIBE_MODE = "buttondown"  # Use "holding" while Buttondown account review is pending.
-CONTACT_FORM_ACTION = "https://formsubmit.co/02774129a6ffd7df5b31b69ff0886e06"
-CONTACT_FORM_AJAX = "https://formsubmit.co/ajax/02774129a6ffd7df5b31b69ff0886e06"
+CONTACT_FORM_PROVIDER = "web3forms"
+CONTACT_FORM_ACTION = "https://api.web3forms.com/submit"
+CONTACT_FORM_AJAX = "https://api.web3forms.com/submit"
+WEB3FORMS_ACCESS_KEY = "d3182889-08c5-400f-a32d-3fced0309f09"
 CONTACT_EMAIL = "hello@munyachipunza.com"
 CONTACT_SUCCESS_URL = f"{SITE_URL}/thanks"
 BUTTONDOWN_USERNAME = "munyachipunza"
@@ -1162,20 +1164,21 @@ FOOTER = """    <footer class="footer">
 
 
 def contact_form_fields(subject: str, source: str = "contact") -> str:
-    return f"""          <form class="signup-form full" name="contact" method="POST" action="{CONTACT_FORM_ACTION}" data-contact-form data-ajax-action="{CONTACT_FORM_AJAX}" data-mailto-fallback="{CONTACT_EMAIL}" data-submit-mode="mailto" data-analytics-source="{escape_attr(source)}" data-success-message="Your email app has opened. Please press send there." data-success-button-label="Email app opened" id="contact-form">
+    return f"""          <form class="signup-form full" name="contact" method="POST" action="{CONTACT_FORM_ACTION}" data-contact-form data-form-provider="{CONTACT_FORM_PROVIDER}" data-ajax-action="{CONTACT_FORM_AJAX}" data-mailto-fallback="{CONTACT_EMAIL}" data-analytics-source="{escape_attr(source)}" data-success-message="Thank you. Your message has reached me privately." data-success-button-label="Message sent" id="contact-form">
+            <input type="hidden" name="access_key" value="{WEB3FORMS_ACCESS_KEY}">
+            <input type="hidden" name="subject" value="{escape_attr(subject)}">
             <input type="hidden" name="_subject" value="{escape_attr(subject)}">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="{CONTACT_SUCCESS_URL}">
+            <input type="hidden" name="from_name" value="MunyaChipunza.com">
+            <input type="hidden" name="redirect" value="{CONTACT_SUCCESS_URL}">
             <p class="sr-only">
-              <label>Leave this field empty <input name="_honey" tabindex="-1" autocomplete="off"></label>
+              <label>Leave this field empty <input name="botcheck" tabindex="-1" autocomplete="off"></label>
             </p>
             <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
             <input type="email" name="email" placeholder="Your email address" autocomplete="email" required>
             <textarea class="full-row" name="message" placeholder="Your message" required></textarea>
             <button class="button button-primary full-row" type="submit">Send message</button>
           </form>
-          <p class="form-note" data-form-status aria-live="polite">This opens your email app so the note reaches Munya directly.</p>"""
+          <p class="form-note" data-form-status aria-live="polite">Your note sends privately from this page.</p>"""
 
 
 def subscribe_form_fields(subject: str, source: str) -> str:
@@ -1189,16 +1192,17 @@ def subscribe_form_fields(subject: str, source: str) -> str:
           <p class="form-note" data-form-status aria-live="polite">Occasional reflections. Please check your inbox to confirm.</p>"""
 
     if SUBSCRIBE_MODE == "holding":
-        return f"""          <form class="signup-form subscribe-form" name="subscribe" method="POST" action="{CONTACT_FORM_ACTION}" data-subscribe-form data-ajax-action="{CONTACT_FORM_AJAX}" data-analytics-source="{escape_attr(source)}" data-pending-message="Saving your subscription..." data-success-message="Thank you. You're on the list." data-success-button-label="Subscribed">
+        return f"""          <form class="signup-form subscribe-form" name="subscribe" method="POST" action="{CONTACT_FORM_ACTION}" data-subscribe-form data-form-provider="{CONTACT_FORM_PROVIDER}" data-ajax-action="{CONTACT_FORM_AJAX}" data-analytics-source="{escape_attr(source)}" data-pending-message="Saving your subscription..." data-success-message="Thank you. You're on the list." data-success-button-label="Subscribed">
+            <input type="hidden" name="access_key" value="{WEB3FORMS_ACCESS_KEY}">
+            <input type="hidden" name="subject" value="{escape_attr(subject)}">
             <input type="hidden" name="_subject" value="{escape_attr(subject)}">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="from_name" value="MunyaChipunza.com">
             <input type="hidden" name="form_type" value="newsletter_subscription">
             <input type="hidden" name="status" value="holding until Buttondown account review is approved">
             <input type="hidden" name="interest" value="New reflections by email">
             <input type="hidden" name="source" value="{escape_attr(source)}">
             <p class="sr-only">
-              <label>Leave this field empty <input name="_honey" tabindex="-1" autocomplete="off"></label>
+              <label>Leave this field empty <input name="botcheck" tabindex="-1" autocomplete="off"></label>
             </p>
             <input type="email" name="email" placeholder="Your email address" autocomplete="email" aria-label="Your email address" required>
             <button class="button button-primary" type="submit">Subscribe</button>
@@ -1417,16 +1421,17 @@ def render_engagement_section(post: dict, canonical: str) -> str:
             <article class="quiet-response-card quiet-note-card">
               <h3>Send a private note</h3>
               <p>If this reflection met you where you are, you can respond in plain words. Your note comes through privately and lands in my inbox.</p>
-              <form class="signup-form full response-form quiet-note-form" name="private-note" method="POST" action="{CONTACT_FORM_ACTION}" data-contact-form data-ajax-action="{CONTACT_FORM_AJAX}" data-mailto-fallback="{CONTACT_EMAIL}" data-submit-mode="mailto" data-analytics-source="{escape_attr(source)}" data-pending-message="Opening your email app..." data-success-message="Your email app has opened. Please press send there." data-error-message="Your email app could not open. Please email hello@munyachipunza.com directly." data-success-button-label="Email app opened" data-error-button-label="Try again">
+              <form class="signup-form full response-form quiet-note-form" name="private-note" method="POST" action="{CONTACT_FORM_ACTION}" data-contact-form data-form-provider="{CONTACT_FORM_PROVIDER}" data-ajax-action="{CONTACT_FORM_AJAX}" data-mailto-fallback="{CONTACT_EMAIL}" data-analytics-source="{escape_attr(source)}" data-pending-message="Sending your private note..." data-success-message="Thank you. Your note has reached me privately." data-error-message="The note could not send from the website. Please try again, or email hello@munyachipunza.com directly." data-success-button-label="Note sent" data-error-button-label="Try again">
+                <input type="hidden" name="access_key" value="{WEB3FORMS_ACCESS_KEY}">
+                <input type="hidden" name="subject" value="{escape_attr(f'Private note about {title}')}">
                 <input type="hidden" name="_subject" value="{escape_attr(f'Private note about {title}')}">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="{CONTACT_SUCCESS_URL}">
+                <input type="hidden" name="from_name" value="MunyaChipunza.com">
+                <input type="hidden" name="redirect" value="{CONTACT_SUCCESS_URL}">
                 <input type="hidden" name="form_type" value="private_note">
                 <input type="hidden" name="article_title" value="{escape_attr(title)}">
                 <input type="hidden" name="article_url" value="{escape_attr(canonical)}">
                 <div class="sr-only" aria-hidden="true">
-                  <label>Leave this field empty <input name="_honey" tabindex="-1" autocomplete="off"></label>
+                  <label>Leave this field empty <input name="botcheck" tabindex="-1" autocomplete="off"></label>
                 </div>
                 <div class="form-field">
                   <label class="field-label" for="note-name-{route}">Name</label>
@@ -1442,7 +1447,7 @@ def render_engagement_section(post: dict, canonical: str) -> str:
                 </div>
                 <button class="button button-primary full-row" type="submit">Send note</button>
               </form>
-              <p class="form-note" data-form-status aria-live="polite">This opens your email app so the note reaches me directly.</p>
+              <p class="form-note" data-form-status aria-live="polite">Your note sends privately from this page.</p>
             </article>
           </div>
         </div>

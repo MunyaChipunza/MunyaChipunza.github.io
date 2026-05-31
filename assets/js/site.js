@@ -169,8 +169,11 @@ document.querySelectorAll("[data-contact-form], [data-subscribe-form]").forEach(
   const isSubscribe = form.hasAttribute("data-subscribe-form");
   const isButtondownSubscribe = isSubscribe && form.action.includes("buttondown.com/api/emails/embed-subscribe/");
   const ajaxAction = form.dataset.ajaxAction;
+  const formProvider =
+    form.dataset.formProvider || (ajaxAction?.includes("api.web3forms.com") ? "web3forms" : "formsubmit");
   const mailtoFallback = form.dataset.mailtoFallback;
   const useMailtoSubmit = mailtoFallback && form.dataset.submitMode === "mailto";
+  const useAutoMailtoFallback = mailtoFallback && form.dataset.autoMailtoFallback === "true";
   const pendingMessage =
     form.dataset.pendingMessage || (isSubscribe ? "Saving your subscription..." : "Sending your note...");
   const successMessage =
@@ -266,14 +269,14 @@ document.querySelectorAll("[data-contact-form], [data-subscribe-form]").forEach(
 
     const eventPrefix = isSubscribe ? "newsletter_subscribe" : "contact_form";
     trackEvent(`${eventPrefix}_submit`, {
-      form_provider: "formsubmit",
+      form_provider: formProvider,
       form_source: analyticsFormSource(form),
     });
 
     const originalLabel = button?.textContent ?? "";
     if (button) {
       button.disabled = true;
-      button.textContent = "Sending...";
+      button.textContent = pendingMessage;
     }
 
     if (note) {
@@ -297,7 +300,7 @@ document.querySelectorAll("[data-contact-form], [data-subscribe-form]").forEach(
 
       form.reset();
       trackEvent(`${eventPrefix}_success`, {
-        form_provider: "formsubmit",
+        form_provider: formProvider,
         form_source: analyticsFormSource(form),
       });
       if (note) {
@@ -309,10 +312,10 @@ document.querySelectorAll("[data-contact-form], [data-subscribe-form]").forEach(
       }
     } catch (error) {
       trackEvent(`${eventPrefix}_error`, {
-        form_provider: "formsubmit",
+        form_provider: formProvider,
         form_source: analyticsFormSource(form),
       });
-      if (mailtoFallback && openMailtoFallback(form)) {
+      if (useAutoMailtoFallback && openMailtoFallback(form)) {
         trackEvent(`${eventPrefix}_success`, {
           form_provider: "mailto_fallback",
           form_source: analyticsFormSource(form),

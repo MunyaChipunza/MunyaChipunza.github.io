@@ -139,16 +139,17 @@
             <article class="quiet-response-card quiet-note-card">
               <h3>Send a private note</h3>
               <p>If this reflection met you where you are, you can respond in plain words. Your note comes through privately and lands in my inbox.</p>
-              <form class="signup-form full response-form quiet-note-form" name="private-note" method="POST" action="https://formsubmit.co/02774129a6ffd7df5b31b69ff0886e06" data-contact-form data-ajax-action="https://formsubmit.co/ajax/02774129a6ffd7df5b31b69ff0886e06" data-mailto-fallback="hello@munyachipunza.com" data-submit-mode="mailto" data-analytics-source="article note: words-that-build-not-break" data-pending-message="Opening your email app..." data-success-message="Your email app has opened. Please press send there." data-error-message="Your email app could not open. Please email hello@munyachipunza.com directly." data-success-button-label="Email app opened" data-error-button-label="Try again">
+              <form class="signup-form full response-form quiet-note-form" name="private-note" method="POST" action="https://api.web3forms.com/submit" data-contact-form data-form-provider="web3forms" data-ajax-action="https://api.web3forms.com/submit" data-mailto-fallback="hello@munyachipunza.com" data-analytics-source="article note: words-that-build-not-break" data-pending-message="Sending your private note..." data-success-message="Thank you. Your note has reached me privately." data-error-message="The note could not send from the website. Please try again, or email hello@munyachipunza.com directly." data-success-button-label="Note sent" data-error-button-label="Try again">
+                <input type="hidden" name="access_key" value="d3182889-08c5-400f-a32d-3fced0309f09">
+                <input type="hidden" name="subject" value="Private note about Words That Build, Not Break">
                 <input type="hidden" name="_subject" value="Private note about Words That Build, Not Break">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://munyachipunza.com/thanks">
+                <input type="hidden" name="from_name" value="MunyaChipunza.com">
+                <input type="hidden" name="redirect" value="https://munyachipunza.com/thanks">
                 <input type="hidden" name="form_type" value="private_note">
                 <input type="hidden" name="article_title" value="Words That Build, Not Break">
                 <input type="hidden" name="article_url" value="https://munyachipunza.com/writing/words-that-build-not-break">
                 <div class="sr-only" aria-hidden="true">
-                  <label>Leave this field empty <input name="_honey" tabindex="-1" autocomplete="off"></label>
+                  <label>Leave this field empty <input name="botcheck" tabindex="-1" autocomplete="off"></label>
                 </div>
                 <div class="form-field">
                   <label class="field-label" for="note-name-words-that-build-not-break">Name</label>
@@ -164,7 +165,7 @@
                 </div>
                 <button class="button button-primary full-row" type="submit">Send note</button>
               </form>
-              <p class="form-note" data-form-status aria-live="polite">This opens your email app so the note reaches me directly.</p>
+              <p class="form-note" data-form-status aria-live="polite">Your note sends privately from this page.</p>
             </article>
           </div>
         </div>
@@ -186,20 +187,21 @@
           <p class="eyebrow">Stay in touch</p>
           <h2>Send a note.</h2>
           <p>If this reflection met you where you are, you can respond here in plain words.</p>
-          <form class="signup-form full" name="contact" method="POST" action="https://formsubmit.co/02774129a6ffd7df5b31b69ff0886e06" data-contact-form data-ajax-action="https://formsubmit.co/ajax/02774129a6ffd7df5b31b69ff0886e06" data-mailto-fallback="hello@munyachipunza.com" data-submit-mode="mailto" data-analytics-source="article: words-that-build-not-break" data-success-message="Your email app has opened. Please press send there." data-success-button-label="Email app opened" id="contact-form">
+          <form class="signup-form full" name="contact" method="POST" action="https://api.web3forms.com/submit" data-contact-form data-form-provider="web3forms" data-ajax-action="https://api.web3forms.com/submit" data-mailto-fallback="hello@munyachipunza.com" data-analytics-source="article: words-that-build-not-break" data-success-message="Thank you. Your message has reached me privately." data-success-button-label="Message sent" id="contact-form">
+            <input type="hidden" name="access_key" value="d3182889-08c5-400f-a32d-3fced0309f09">
+            <input type="hidden" name="subject" value="New message about Words That Build, Not Break">
             <input type="hidden" name="_subject" value="New message about Words That Build, Not Break">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://munyachipunza.com/thanks">
+            <input type="hidden" name="from_name" value="MunyaChipunza.com">
+            <input type="hidden" name="redirect" value="https://munyachipunza.com/thanks">
             <p class="sr-only">
-              <label>Leave this field empty <input name="_honey" tabindex="-1" autocomplete="off"></label>
+              <label>Leave this field empty <input name="botcheck" tabindex="-1" autocomplete="off"></label>
             </p>
             <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
             <input type="email" name="email" placeholder="Your email address" autocomplete="email" required>
             <textarea class="full-row" name="message" placeholder="Your message" required></textarea>
             <button class="button button-primary full-row" type="submit">Send message</button>
           </form>
-          <p class="form-note" data-form-status aria-live="polite">This opens your email app so the note reaches Munya directly.</p>
+          <p class="form-note" data-form-status aria-live="polite">Your note sends privately from this page.</p>
         </div>
       </section>
     </main>
@@ -251,6 +253,6 @@
       </div>
     </footer>
 
-    <script src="/assets/js/site.js?v=20260531a"></script>
+    <script src="/assets/js/site.js?v=20260531b"></script>
   </body>
 </html>
