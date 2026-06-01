@@ -5,6 +5,7 @@ set "BUTTON_FOLDER=%~dp0"
 set "CLEAN_REPO=C:\Users\Dell\Projects\munya-publish"
 set "DRAFT_FILE=%BUTTON_FOLDER%PASTE NEW POST IN HERE.txt"
 set "LOCAL_TEMPLATE=%BUTTON_FOLDER%NEW-POST-TEMPLATE.txt"
+set "BUNDLED_PYTHON=C:\Users\Dell\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
 
 if not exist "%CLEAN_REPO%\scripts\publish_post.py" (
   echo Clean publishing repo not found: %CLEAN_REPO%
@@ -42,11 +43,24 @@ if not "%ERRORLEVEL%"=="0" (
   exit /b 1
 )
 
-where py >nul 2>nul
-if %ERRORLEVEL%==0 (
-  py -3 scripts\publish_post.py --draft "%DRAFT_FILE%"
+if exist "%BUNDLED_PYTHON%" (
+  "%BUNDLED_PYTHON%" scripts\publish_post.py --draft "%DRAFT_FILE%"
 ) else (
-  python scripts\publish_post.py --draft "%DRAFT_FILE%"
+  where py >nul 2>nul
+  if %ERRORLEVEL%==0 (
+    py -3 scripts\publish_post.py --draft "%DRAFT_FILE%"
+  ) else (
+    where python >nul 2>nul
+    if %ERRORLEVEL%==0 (
+      python scripts\publish_post.py --draft "%DRAFT_FILE%"
+    ) else (
+      echo Python was not found.
+      echo Expected bundled Python at:
+      echo %BUNDLED_PYTHON%
+      pause
+      exit /b 1
+    )
+  )
 )
 
 set RESULT=%ERRORLEVEL%
