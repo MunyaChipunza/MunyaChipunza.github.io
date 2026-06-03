@@ -386,7 +386,12 @@ def main(argv: list[str] | None = None) -> int:
     sync_main_branch()
     assert_clean_worktree()
     write_post_file(post, post_path)
-    run([sys.executable, "scripts/generate_audio.py", "--route", post["route"], "--skip-if-unconfigured"])
+    audio_result = run(
+        [sys.executable, "scripts/generate_audio.py", "--route", post["route"], "--skip-if-unconfigured"],
+        check=False,
+    )
+    if audio_result.returncode != 0:
+        print("Audio generation failed or is unavailable; continuing publish without audio.")
     run([sys.executable, "scripts/generate_writing.py"])
     validate_generated_site(post)
     run(["git", "add", "--all"])
