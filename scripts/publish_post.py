@@ -73,24 +73,42 @@ def split_metadata_and_body(text: str) -> tuple[dict[str, str], list[str]]:
         lines.pop()
 
     metadata: dict[str, str] = {}
-    body_start = 0
-    for index, line in enumerate(lines):
-        stripped = line.strip()
-        if not stripped:
-            body_start = index + 1
-            break
-        if stripped == "---":
-            body_start = index + 1
-            break
+    index = 0
+    while index < len(lines):
+        stripped = lines[index].strip()
+        if not stripped or stripped == "---":
+            index += 1
+            continue
+
         match = re.match(r"^(title|tag|summary|date)\s*:\s*(.+)$", stripped, flags=re.IGNORECASE)
         if match:
             metadata[match.group(1).lower()] = match.group(2).strip()
-            body_start = index + 1
+            index += 1
             continue
+
         if "title" not in metadata:
             metadata["title"] = stripped.lstrip("#").strip()
+            index += 1
+            continue
+
+        break
+
+    body_start = index
+    for index, line in enumerate(lines[body_start:], start=body_start):
+        stripped = line.strip()
+        if not stripped:
             body_start = index + 1
-            break
+            continue
+        if stripped == "---":
+            body_start = index + 1
+            continue
+        match = re.match(r"^(title|tag|summary|date)\s*:\s*(.+)$", stripped, flags=re.IGNORECASE)
+        if match:
+            body_start = index + 1
+            metadata[match.group(1).lower()] = match.group(2).strip()
+            continue
+        body_start = index
+        break
 
     body_lines = lines[body_start:]
     while body_lines and not body_lines[0].strip():
