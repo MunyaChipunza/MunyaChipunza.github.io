@@ -343,6 +343,7 @@ def mirror_to_google_drive() -> None:
         "/XD",
         ".git",
         "__pycache__",
+        "reports",
         "/XF",
         "*.log",
         "*.pyc",
