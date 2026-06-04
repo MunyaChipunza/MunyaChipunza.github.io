@@ -29,9 +29,9 @@ GOOGLE_ANALYTICS_TAG = """    <script async src="https://www.googletagmanager.co
       gtag('config', 'G-4J3RHW9XRZ');
     </script>"""
 ICON_LINKS = """    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="/assets/icons/favicon-48.png" type="image/png" sizes="48x48">
+    <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">"""
 SUBSCRIBE_MODE = "buttondown"  # Use "holding" while Buttondown account review is pending.
 CONTACT_FORM_PROVIDER = "web3forms"

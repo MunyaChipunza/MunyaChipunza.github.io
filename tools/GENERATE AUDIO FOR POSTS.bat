@@ -67,7 +67,7 @@ git push origin main
 if not "%ERRORLEVEL%"=="0" goto failed
 
 if exist "%GOOGLE_DRIVE_TARGET%" (
-  robocopy "%CLEAN_REPO%" "%GOOGLE_DRIVE_TARGET%" /MIR /XJ /XD .git __pycache__ /XF *.log *.pyc /R:2 /W:2 /NFL /NDL /NP
+  robocopy "%CLEAN_REPO%" "%GOOGLE_DRIVE_TARGET%" /MIR /XJ /XD .git __pycache__ reports /XF *.log *.pyc /R:2 /W:2 /NFL /NDL /NP
   if errorlevel 8 goto failed
 )
 

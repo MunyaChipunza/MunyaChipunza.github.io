@@ -1,2 +1,2 @@
 @echo off
-call "%~dp0publish-post.bat"
+call "%~dp0tools\publish-post.bat"

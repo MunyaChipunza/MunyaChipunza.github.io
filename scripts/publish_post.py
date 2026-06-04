@@ -15,8 +15,8 @@ from urllib.request import urlopen
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DRAFT_PATH = ROOT / "new-post.txt"
-TEMPLATE_PATH = ROOT / "NEW-POST-TEMPLATE.txt"
+DEFAULT_DRAFT_PATH = ROOT / "PASTE NEW POST IN HERE.txt"
+TEMPLATE_PATH = ROOT / "docs" / "NEW-POST-TEMPLATE.txt"
 CONTENT_POSTS_DIR = ROOT / "content" / "posts"
 SUBMITTED_DIR = ROOT / "content" / "submitted"
 GOOGLE_DRIVE_TARGET = Path(r"G:\My Drive\100. Zee\Munyachipunza.com")
@@ -29,7 +29,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--draft",
         default=str(DEFAULT_DRAFT_PATH),
-        help="Path to the draft text file. Defaults to new-post.txt in this repository.",
+        help="Path to the draft text file. Defaults to the root PASTE NEW POST IN HERE.txt file.",
     )
     return parser.parse_args(argv)
 
@@ -376,7 +376,7 @@ def main(argv: list[str] | None = None) -> int:
         draft_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(TEMPLATE_PATH, draft_path)
         print(f"Created draft file: {draft_path}")
-        print("Paste your post into it, save, then run publish-post.bat again.")
+        print("Paste your post into it, save, then run the root double-click publisher again.")
         return 1
 
     post, post_path = parse_draft(draft_path)

@@ -1,10 +1,11 @@
 @echo off
 setlocal
 
-set "BUTTON_FOLDER=%~dp0"
+set "TOOLS_FOLDER=%~dp0"
+for %%I in ("%TOOLS_FOLDER%..") do set "SITE_ROOT=%%~fI"
 set "CLEAN_REPO=C:\Users\Dell\Projects\munya-publish"
-set "DRAFT_FILE=%BUTTON_FOLDER%PASTE NEW POST IN HERE.txt"
-set "LOCAL_TEMPLATE=%BUTTON_FOLDER%NEW-POST-TEMPLATE.txt"
+set "DRAFT_FILE=%SITE_ROOT%\PASTE NEW POST IN HERE.txt"
+set "LOCAL_TEMPLATE=%SITE_ROOT%\docs\NEW-POST-TEMPLATE.txt"
 set "BUNDLED_PYTHON=C:\Users\Dell\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
 
 if not exist "%CLEAN_REPO%\scripts\publish_post.py" (
@@ -18,10 +19,10 @@ if not exist "%DRAFT_FILE%" (
   if exist "%LOCAL_TEMPLATE%" (
     copy "%LOCAL_TEMPLATE%" "%DRAFT_FILE%" >nul
   ) else (
-    copy "%CLEAN_REPO%\NEW-POST-TEMPLATE.txt" "%DRAFT_FILE%" >nul
+    copy "%CLEAN_REPO%\docs\NEW-POST-TEMPLATE.txt" "%DRAFT_FILE%" >nul
   )
   echo Created %DRAFT_FILE%.
-  echo Paste your post into that file, save it, then double-click DOUBLE CLICK TO ACTIVATE NEW POST.bat again.
+  echo Paste your post into that file, save it, then double-click the root DOUBLE CLICK TO ACTIVATE NEW POST.bat again.
   start notepad "%DRAFT_FILE%"
   pause
   exit /b 1
