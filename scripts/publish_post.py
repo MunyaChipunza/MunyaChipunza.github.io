@@ -117,6 +117,11 @@ def split_metadata_and_body(text: str) -> tuple[dict[str, str], list[str]]:
 
 
 def paragraphs_from_lines(lines: list[str]) -> list[str]:
+    content_lines = [line.strip() for line in lines if line.strip() and line.strip() != "---"]
+    if content_lines and not any(not line.strip() for line in lines):
+        # Some editors paste one complete paragraph per line without blank separators.
+        return content_lines
+
     paragraphs: list[str] = []
     current: list[str] = []
     for line in lines:
