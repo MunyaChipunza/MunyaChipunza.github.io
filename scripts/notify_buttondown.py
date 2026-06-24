@@ -69,18 +69,37 @@ def request_json(method: str, path: str, api_key: str, payload: dict | None = No
     return json.loads(raw) if raw else {}
 
 
-def already_notified(api_key: str, item: FeedItem, subject: str) -> bool:
-    query = urllib.parse.urlencode({"subject": subject, "ordering": "-creation_date"})
-    data = request_json("GET", f"/emails?{query}", api_key)
+def email_matches_item(email: dict, item: FeedItem) -> bool:
+    metadata = email.get("metadata") or {}
+    canonical_url = normalize_url(email.get("canonical_url") or "")
+    metadata_guid = normalize_url(str(metadata.get("guid") or ""))
     target_url = normalize_url(item.link)
     target_guid = normalize_url(item.guid)
 
-    for email in data.get("results", []):
-        metadata = email.get("metadata") or {}
-        canonical_url = normalize_url(email.get("canonical_url") or "")
-        metadata_guid = normalize_url(str(metadata.get("guid") or ""))
+    return canonical_url == target_url or metadata_guid == target_guid
 
-        if canonical_url == target_url or metadata_guid == target_guid:
+
+def already_notified(api_key: str, item: FeedItem, subject: str) -> bool:
+    queries = [
+        {"subject": subject, "ordering": "-creation_date"},
+        {"ordering": "-creation_date"},
+    ]
+    seen_ids = set()
+
+    for params in queries:
+        query = urllib.parse.urlencode(params)
+        data = request_json("GET", f"/emails?{query}", api_key)
+
+        for email in data.get("results", []):
+            email_id = str(email.get("id") or "")
+            if email_id and email_id in seen_ids:
+                continue
+            if email_id:
+                seen_ids.add(email_id)
+
+            if not email_matches_item(email, item):
+                continue
+
             status = email.get("status", "unknown")
             print(f"Already notified for {item.title!r}; Buttondown email status is {status}.")
             return True
