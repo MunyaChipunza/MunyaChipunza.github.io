@@ -1,0 +1,29 @@
+name: Publish scheduled posts
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Publish due scheduled posts
+    if: github.repository == 'MunyaChipunza/MunyaChipunza.github.io'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: scheduled-post-publisher
+      cancel-in-progress: false
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Publish due posts
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_ID: ${{ secrets.ELEVENLABS_VOICE_ID }}
+        run: python scripts/publish_scheduled_posts.py
