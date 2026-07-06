@@ -101,6 +101,14 @@ def commit_and_push(posts: list[dict]) -> None:
     run(["git", "push"])
 
 
+def notify_subscribers() -> None:
+    if not os.getenv("BUTTONDOWN_API_KEY"):
+        print("BUTTONDOWN_API_KEY is not configured; skipping subscriber notification.")
+        return
+    os.environ.setdefault("BUTTONDOWN_EMAIL_STATUS", "about_to_send")
+    run([sys.executable, "scripts/notify_buttondown.py"])
+
+
 def main() -> int:
     now_value = os.getenv("SCHEDULED_PUBLISH_NOW")
     now = parse_iso(now_value) if now_value else datetime.now(timezone.utc)
@@ -120,6 +128,7 @@ def main() -> int:
         return 0
 
     commit_and_push(published)
+    notify_subscribers()
     return 0
 
 
